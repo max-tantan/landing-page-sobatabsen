@@ -329,9 +329,7 @@ li,td,th,label,input,select,button,.topbar nav a,.footer-nav a,.faq-item button,
 .problem-panel li:first-child{border-top:0;padding-top:0}
 .problem-new li{border-top-color:rgba(255,255,255,.14)}
 .problem-panel li b{display:block;color:#111;font-size:var(--text-ui)!important;font-weight:800}
-.problem-panel li span{display:block;margin-top:4px;color:#6b6b6b;font-size:var(--text-caption)!important;line-height:1.55}
 .problem-new li b{color:#fff}
-.problem-new li span{color:#b9c9e2}
 @media(max-width:650px){.problems-section{padding-bottom:60px}.problem-grid{grid-template-columns:1fr;gap:12px;margin-top:26px}.problem-panel-inner{padding:20px 17px}}
 .how-inner .steps{grid-template-columns:1fr;gap:10px}
 .how-inner .step,.how-inner .step:first-child{display:block;width:100%;min-height:0;padding:14px;font-family:inherit;text-align:left;color:inherit;cursor:pointer}

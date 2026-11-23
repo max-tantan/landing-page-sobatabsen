@@ -53,9 +53,9 @@ const faqs = [
   ['Metode bayar apa saja?', 'Tersedia QRIS, Virtual Account, dan e-wallet. Pembayaran pada halaman ini masih simulasi.'],
 ]
 const problemPairs = [
-  ['Antre & buang waktu', 'Proses absen menumpuk di jam sibuk dan memakan waktu banyak.', 'Absen cepat dalam hitungan detik', 'Anggota bisa mencatat kehadiran secara praktis dari perangkat masing-masing.'],
-  ['Rawan titip absen', 'Sulit memastikan kehadiran benar-benar dilakukan oleh orang yang bersangkutan.', 'Verifikasi lebih terarah', 'Membantu memastikan absensi dilakukan sesuai aturan dan ketentuan lembaga.'],
-  ['Rekap manual melelahkan', 'Harus menyalin dan merapikan data satu per satu sebelum bisa dibaca.', 'Laporan siap rapi', 'Data kehadiran tersusun otomatis dan lebih mudah dipantau kapan saja.'],
+  ['Antre & buang waktu', 'Absen cepat dalam hitungan detik'],
+  ['Rawan titip absen', 'Verifikasi lebih terarah'],
+  ['Rekap manual melelahkan', 'Laporan siap rapi'],
 ]
 
 function openCheckout(plan: Plan) {
@@ -131,8 +131,8 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
         <h2>Berubahlah ke jalur yang rapih</h2>
       </div>
       <div class="problem-grid">
-        <article class="problem-panel problem-old"><div class="problem-panel-inner"><div class="problem-panel-head"><h3>Cara Lama</h3></div><ul><li v-for="pair in problemPairs" :key="pair[0]"><b>{{ pair[0] }}</b><span>{{ pair[1] }}</span></li></ul></div></article>
-        <article class="problem-panel problem-new"><div class="problem-panel-inner"><div class="problem-panel-head"><h3>Dengan SobatAbsen</h3></div><ul><li v-for="pair in problemPairs" :key="pair[2]"><b>{{ pair[2] }}</b><span>{{ pair[3] }}</span></li></ul></div></article>
+        <article class="problem-panel problem-old"><div class="problem-panel-inner"><div class="problem-panel-head"><h3>Cara Lama</h3></div><ul><li v-for="pair in problemPairs" :key="pair[0]"><b>{{ pair[0] }}</b></li></ul></div></article>
+        <article class="problem-panel problem-new"><div class="problem-panel-inner"><div class="problem-panel-head"><h3>Dengan SobatAbsen</h3></div><ul><li v-for="pair in problemPairs" :key="pair[1]"><b>{{ pair[1] }}</b></li></ul></div></article>
       </div>
     </section>
 
