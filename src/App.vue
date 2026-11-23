@@ -9,12 +9,23 @@ import RubberSegment from './components/RubberSegment.vue'
 import TestimonialsSection from './components/TestimonialsSection.vue'
 import faqImage from './assets/sobatabsen1.jpeg'
 import faqImage2 from './assets/sobatabsen2.jpeg'
+import stepImage1 from './assets/langkah-langkah/gambar1.jpg'
+import stepImage2 from './assets/langkah-langkah/gambar2.jpg'
+import stepImage3 from './assets/langkah-langkah/gambar3.jpg'
 
 const planTab = ref<'monthly' | 'oneoff'>('monthly')
 const eventPeople = ref('250')
 const eventDays = ref(5)
 const customPeople = ref('800')
 const customCategory = ref('Sekolah')
+const activeStep = ref(0)
+const canHover = window.matchMedia('(hover: hover)').matches
+function setHoverStep(index: number) { if (canHover) activeStep.value = index }
+const howSteps = [
+  { title: 'Aktifkan lokasi', desc: 'Absen dari radius yang ditentukan.', img: stepImage1 },
+  { title: 'Scan QR', desc: 'Gunakan QR yang tersedia di lokasi.', img: stepImage2 },
+  { title: 'Ambil selfie', desc: 'Gunakan kamera langsung, bukan galeri.', img: stepImage3 },
+]
 const activeFaq = ref(0)
 const menuOpen = ref(false)
 const checkout = ref(false)
@@ -126,14 +137,25 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
     </section>
 
     <section class="how-section" id="cara-kerja">
-      <div class="section-wrap how-inner">
+      <div class="section-wrap">
         <div class="section-head">
           <h2>Absen dalam <em>tiga langkah.</em></h2>
         </div>
-        <div class="steps" aria-label="Alur absensi">
-          <article class="step"><span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2.5 2.5" opacity=".45"/><circle cx="12" cy="12" r="4.8" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></span><h3>Aktifkan lokasi</h3><p>Absen dari radius yang ditentukan.</p></article>
-          <article class="step"><span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><path d="M13 13.5h3.2M19.5 13.5H18M13 17h2M16.5 17H19.5M13 20.5h6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><h3>Scan QR</h3><p>Gunakan QR yang tersedia di lokasi.</p></article>
-          <article class="step"><span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="6.5" width="17" height="12.5" rx="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12.5" r="3.4" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 6.5l1.2-2h4.6l1.2 2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span><h3>Ambil selfie</h3><p>Gunakan kamera langsung, bukan galeri.</p></article>
+        <div class="how-inner">
+          <div class="how-visual" aria-hidden="true">
+            <div v-for="(step, index) in howSteps" :key="step.title" class="how-visual-panel" :class="{ active: activeStep === index }"><img :src="step.img" :alt="step.title" /></div>
+          </div>
+          <div class="steps" aria-label="Alur absensi" @mouseleave="setHoverStep(0)" @focusout="setHoverStep(0)">
+            <button v-for="(step, index) in howSteps" :key="step.title" type="button" class="step" :class="{ 'is-active': activeStep === index }" @mouseenter="setHoverStep(index)" @focus="setHoverStep(index)" @click="activeStep = index">
+              <span class="step-icon" aria-hidden="true">
+                <svg v-if="index === 0" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2.5 2.5" opacity=".45"/><circle cx="12" cy="12" r="4.8" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+                <svg v-else-if="index === 1" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><path d="M13 13.5h3.2M19.5 13.5H18M13 17h2M16.5 17H19.5M13 20.5h6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg v-else viewBox="0 0 24 24" fill="none"><rect x="3.5" y="6.5" width="17" height="12.5" rx="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12.5" r="3.4" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 6.5l1.2-2h4.6l1.2 2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </span>
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.desc }}</p>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -164,10 +186,6 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
         </div>
       </div>
       <span class="cta-star">✳</span>
-    </section>
-
-    <section class="brand-outro" aria-label="SobatAbsen">
-      <h2>SobatAbs<span class="brand-outro-e">e</span><span class="brand-outro-n">n</span><svg class="brand-outro-star" aria-hidden="true" viewBox="0 0 100 100"><path d="M50 2 61 36 96 21 76 50 97 78 62 64 50 98 38 64 3 79 24 50 3 22 38 36Z" /></svg></h2>
     </section>
 
     <footer class="site-footer">
