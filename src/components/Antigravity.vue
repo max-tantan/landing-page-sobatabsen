@@ -334,30 +334,24 @@ const finish = (gl: WebGL2RenderingContext, { program, vertex, fragment }: Linki
       compiled = false;
     }
     if (compiled) console.error(gl.getProgramInfoLog(program));
-  }
-  gl.deleteShader(vertex);
-  gl.deleteShader(fragment);
-  if (!linked) {
+    gl.deleteShader(vertex);
+    gl.deleteShader(fragment);
     gl.deleteProgram(program);
     return null;
   }
+  gl.deleteShader(vertex);
+  gl.deleteShader(fragment);
+
   const uniforms: Program['uniforms'] = {};
-  const count = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
-  for (let index = 0; index < count; index++) {
-    const info = gl.getActiveUniform(program, index);
-    if (info) uniforms[info.name] = gl.getUniformLocation(program, info.name);
+  const uniformNames = [
+    'uPalette', 'uSize', 'uPixel', 'uCursor', 'uRing', 'uBand', 'uParticle',
+    'uAmbient', 'uTime', 'uPulse', 'uVariance', 'uDepth', 'uShape',
+    'uColorMode', 'uStops', 'uHue', 'uReveal', 'uStreak', 'uCharge', 'uOpacity'
+  ];
+  for (const name of uniformNames) {
+    uniforms[name] = gl.getUniformLocation(program, name);
   }
   return { program, uniforms };
-};
-
-const retire = (gl: WebGL2RenderingContext, parallel: KHR_parallel_shader_compile | null, linking: Linking): void => {
-  if (parallel && gl.getProgramParameter(linking.program, parallel.COMPLETION_STATUS_KHR) === false) {
-    requestAnimationFrame(() => retire(gl, parallel, linking));
-    return;
-  }
-  gl.deleteShader(linking.vertex);
-  gl.deleteShader(linking.fragment);
-  gl.deleteProgram(linking.program);
 };
 
 const props = withDefaults(defineProps<AntigravityProps>(), {
@@ -367,7 +361,7 @@ const props = withDefaults(defineProps<AntigravityProps>(), {
   waveSpeed: 0.4,
   waveAmplitude: 1,
   waveCount: 3,
-  particleSize: 0.9,
+  particleSize: 0.55,
   lerpSpeed: 0.05,
   color: undefined,
   colors: () => ['#1268d2', '#1878ec', '#4ea1ff', '#c5e0ff'],
@@ -446,10 +440,17 @@ const setup = () => {
     stencil: false,
     powerPreference: 'high-performance'
   });
-  const parallel = gl ? gl.getExtension('KHR_parallel_shader_compile') : null;
-  const linking = gl ? link(gl) : null;
-  let shader = gl && linking && !parallel ? finish(gl, linking) : null;
-  if (!gl || !linking || (!parallel && !shader)) return;
+  if (!gl) {
+    console.warn('Antigravity: WebGL2 context not available');
+    return;
+  }
+
+  const linking = link(gl);
+  const shader = linking ? finish(gl, linking) : null;
+  if (!shader) {
+    console.error('Antigravity: Shader program failed to compile or link');
+    return;
+  }
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const vao = gl.createVertexArray();
@@ -459,11 +460,13 @@ const setup = () => {
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
   gl.enableVertexAttribArray(0);
   gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+
   const particleBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, particleBuffer);
   gl.enableVertexAttribArray(1);
   gl.vertexAttribPointer(1, 4, gl.FLOAT, false, 0, 0);
   gl.vertexAttribDivisor(1, 1);
+
   const seedBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, seedBuffer);
   gl.enableVertexAttribArray(2);
@@ -487,7 +490,7 @@ const setup = () => {
   let charge = 0;
   let introClock = settings.value.intro && !reduced && generation.value === 0 ? 0 : Infinity;
   let raf = 0;
-  let last = 0;
+  let last = performance.now();
   let visible = true;
   let pageVisible = document.visibilityState !== 'hidden';
   let lost = false;
@@ -576,8 +579,8 @@ const setup = () => {
   const applyResize = () => {
     const s = settings.value;
     const rect = container.getBoundingClientRect();
-    const cssWidth = Math.max(1, rect.width);
-    const cssHeight = Math.max(1, rect.height);
+    const cssWidth = Math.max(300, rect.width || container.clientWidth || window.innerWidth || 800);
+    const cssHeight = Math.max(300, rect.height || container.clientHeight || 700);
     const ratio = Math.min(window.devicePixelRatio || 1, s.maxRatio, Math.sqrt(PIXEL_BUDGET / (cssWidth * cssHeight)));
     const width = Math.max(1, Math.round(cssWidth * ratio));
     const height = Math.max(1, Math.round(cssHeight * ratio));
@@ -682,24 +685,12 @@ const setup = () => {
 
   const frame = (now: number) => {
     raf = 0;
-    if (!shader) {
-      if (lost || !parallel || gl.isContextLost()) return;
-      if (!gl.getProgramParameter(linking.program, parallel.COMPLETION_STATUS_KHR)) {
-        last = Math.max(last, now);
-        if (visible && pageVisible) raf = requestAnimationFrame(frame);
-        return;
-      }
-      shader = finish(gl, linking);
-      if (!shader) {
-        lost = true;
-        return;
-      }
-    }
+    if (lost) return;
     if (resizePending) {
       resizePending = false;
       applyResize();
     }
-    if (lost || !field) return;
+    if (!field) return;
     const s = settings.value;
     updatePalette(s);
     const dt = clamp((now - last) / 1000 || 0, 0, 1 / 30);
@@ -735,36 +726,37 @@ const setup = () => {
     gl.bindVertexArray(vao);
     gl.bindBuffer(gl.ARRAY_BUFFER, particleBuffer);
     gl.bufferSubData(gl.ARRAY_BUFFER, 0, field.particles);
+
     const u = shader.uniforms;
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, paletteTexture);
-    gl.uniform1i(u.uPalette, 0);
-    gl.uniform2f(u.uSize, size.width, size.height);
-    gl.uniform1f(u.uPixel, size.ratio);
-    gl.uniform2f(u.uCursor, cursor.x, cursor.y);
-    gl.uniform1f(u.uRing, s.ring * unit * (1 - 0.38 * charge));
-    gl.uniform1f(u.uBand, Math.max(unit * 6, 1));
-    gl.uniform1f(u.uParticle, s.size * unit * 0.6);
-    gl.uniform1f(u.uAmbient, s.ambient);
-    gl.uniform1f(u.uTime, time);
-    gl.uniform1f(u.uPulse, s.pulse);
-    gl.uniform1f(u.uVariance, s.variance);
-    gl.uniform1f(u.uDepth, s.depth);
-    gl.uniform1f(u.uShape, s.shape);
-    gl.uniform1f(u.uColorMode, s.colorMode);
-    gl.uniform1f(u.uStops, s.palette.length);
-    gl.uniform1f(u.uHue, hue);
-    gl.uniform1f(u.uReveal, introClock < 3 ? clamp(introClock / 0.6, 0, 1) : 1);
-    gl.uniform1f(u.uStreak, unit * 30);
-    gl.uniform1f(u.uCharge, charge);
-    gl.uniform1f(u.uOpacity, s.opacity);
+    if (u.uPalette) gl.uniform1i(u.uPalette, 0);
+    if (u.uSize) gl.uniform2f(u.uSize, size.width, size.height);
+    if (u.uPixel) gl.uniform1f(u.uPixel, size.ratio);
+    if (u.uCursor) gl.uniform2f(u.uCursor, cursor.x, cursor.y);
+    if (u.uRing) gl.uniform1f(u.uRing, s.ring * unit * (1 - 0.38 * charge));
+    if (u.uBand) gl.uniform1f(u.uBand, Math.max(unit * 6, 1));
+    if (u.uParticle) gl.uniform1f(u.uParticle, s.size * unit * 0.6);
+    if (u.uAmbient) gl.uniform1f(u.uAmbient, s.ambient);
+    if (u.uTime) gl.uniform1f(u.uTime, time);
+    if (u.uPulse) gl.uniform1f(u.uPulse, s.pulse);
+    if (u.uVariance) gl.uniform1f(u.uVariance, s.variance);
+    if (u.uDepth) gl.uniform1f(u.uDepth, s.depth);
+    if (u.uShape) gl.uniform1f(u.uShape, s.shape);
+    if (u.uColorMode) gl.uniform1f(u.uColorMode, s.colorMode);
+    if (u.uStops) gl.uniform1f(u.uStops, s.palette.length);
+    if (u.uHue) gl.uniform1f(u.uHue, hue);
+    if (u.uReveal) gl.uniform1f(u.uReveal, introClock < 3 ? clamp(introClock / 0.4 + 0.2, 0, 1) : 1);
+    if (u.uStreak) gl.uniform1f(u.uStreak, unit * 30);
+    if (u.uCharge) gl.uniform1f(u.uCharge, charge);
+    if (u.uOpacity) gl.uniform1f(u.uOpacity, s.opacity);
     gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, field.total);
 
     if (visible && pageVisible) raf = requestAnimationFrame(frame);
   };
 
   const wake = () => {
-    if (raf || lost || !visible || !pageVisible) return;
+    if (raf || lost || !pageVisible) return;
     last = performance.now();
     raf = requestAnimationFrame(frame);
   };
@@ -775,14 +767,15 @@ const setup = () => {
 
   const locate = (event: PointerEvent) => {
     const rect = container.getBoundingClientRect();
+    const inside =
+      event.clientX >= rect.left &&
+      event.clientX <= rect.right &&
+      event.clientY >= rect.top &&
+      event.clientY <= rect.bottom;
     return {
       x: event.clientX - rect.left,
       y: event.clientY - rect.top,
-      inside:
-        event.clientX >= rect.left &&
-        event.clientX <= rect.right &&
-        event.clientY >= rect.top &&
-        event.clientY <= rect.bottom
+      inside
     };
   };
 
@@ -793,6 +786,7 @@ const setup = () => {
     pointer.x = spot.x;
     pointer.y = spot.y;
     pointer.moved = performance.now();
+    wake();
   };
   const onPointerDown = (event: PointerEvent) => {
     const s = settings.value;
@@ -803,11 +797,13 @@ const setup = () => {
     pointer.inside = true;
     pointer.moved = performance.now();
     if (s.clickBurst && !reduced) pointer.down = true;
+    wake();
   };
   const onPointerUp = (event: PointerEvent) => {
     if (pointer.down) burst(settings.value, 0.45 + charge);
     pointer.down = false;
     if (event.pointerType !== 'mouse') pointer.inside = false;
+    wake();
   };
   const onLeave = () => {
     pointer.inside = false;
@@ -836,8 +832,11 @@ const setup = () => {
   resizeObserver.observe(container);
 
   const intersection = new IntersectionObserver(entries => {
-    visible = entries.some(entry => entry.isIntersecting);
-    wake();
+    const isIntersecting = entries.some(entry => entry.isIntersecting);
+    visible = isIntersecting;
+    if (isIntersecting) {
+      wake();
+    }
   });
   intersection.observe(container);
 
@@ -847,7 +846,8 @@ const setup = () => {
   };
   document.addEventListener('visibilitychange', onVisibility);
 
-  resize();
+  // Initial calculation and launch
+  applyResize();
   wake();
 
   teardown = () => {
@@ -869,13 +869,14 @@ const setup = () => {
       gl.deleteBuffer(seedBuffer);
       gl.deleteTexture(paletteTexture);
       gl.deleteVertexArray(vao);
-      if (!canvas.isConnected) gl.getExtension('WEBGL_lose_context')?.loseContext();
-      else if (!lost) retire(gl, parallel, linking);
+      gl.deleteProgram(shader.program);
     }
   };
 };
 
-onMounted(setup);
+onMounted(() => {
+  setup();
+});
 
 onUnmounted(() => {
   teardown?.();
@@ -901,10 +902,12 @@ watch(settings, () => {
 
 <style>
 .antigravity {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  pointer-events: auto;
 }
 
 .antigravity__canvas {
