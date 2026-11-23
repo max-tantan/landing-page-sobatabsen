@@ -60,7 +60,6 @@ onBeforeUnmount(() => {
     <div class="testimonials-inner">
       <div class="testimonials-intro">
         <h2 id="testimonials-title">Kehadiran yang lebih mudah dikelola.</h2>
-        <p class="testimonials-lead">QR, selfie, lokasi, dan rekap digital membantu admin mencatat kehadiran dengan lebih ringkas.</p>
         <a class="testimonials-cta" href="#paket"><span aria-hidden="true">✳</span> Lihat paket <b aria-hidden="true">↗</b></a>
 
         <div class="testimonials-divider"></div>
@@ -131,9 +130,8 @@ onBeforeUnmount(() => {
 .testimonials-inner{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:58px;max-width:1280px;margin:0 auto;padding:0 42px}
 .testimonials-intro{padding:28px 0}
 .testimonials-intro .eyebrow{margin-bottom:12px;color:#1878ec}
-.testimonials-intro h2{max-width:440px;margin:0;color:#17181b;font:700 clamp(2.3rem,2rem + 1.3vw,3rem)/1.08 'Nunito Sans',sans-serif;letter-spacing:-.045em;text-wrap:balance}
-.testimonials-lead{max-width:430px;margin:17px 0 22px;color:#5d626e;font-size:1rem;line-height:1.65}
-.testimonials-cta{display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border-radius:999px;background:#eceef1;color:#17181b;font-size:.875rem;font-weight:700}
+.testimonials-intro h2{max-width:440px;margin:0;color:var(--ink);font-family:Manrope,sans-serif;font-size:var(--text-section-heading);font-weight:800;letter-spacing:-2px;line-height:1.12;text-wrap:balance}
+.testimonials-cta{display:inline-flex;align-items:center;gap:9px;margin-top:22px;padding:8px 13px;border-radius:999px;background:#eceef1;color:#17181b;font-size:.875rem;font-weight:700}
 .testimonials-cta>span{color:#1878ec}
 .testimonials-cta b{margin-left:5px;font-size:1rem}
 .testimonials-divider{height:1px;margin:46px 0 34px;background:linear-gradient(90deg,#dfe2e7,transparent)}
@@ -161,7 +159,7 @@ onBeforeUnmount(() => {
 .testimonials-wall:focus-visible{outline:3px solid #1878ec;outline-offset:4px}
 @keyframes testimonials-up{to{transform:translateY(-50%)}}
 @keyframes testimonials-down{from{transform:translateY(-50%)}to{transform:translateY(0)}}
-@media(max-width:900px){.testimonials-section{padding:72px 0}.testimonials-inner{grid-template-columns:1fr;gap:30px;padding:0 25px}.testimonials-intro{padding:0}.testimonials-intro h2,.testimonials-lead,.featured-comment{max-width:600px}.testimonials-divider{margin:30px 0 22px}.testimonials-wall{padding-top:34px}.testimonial-columns{height:460px}}
-@media(max-width:650px){.testimonials-section{padding:62px 0}.testimonials-inner{gap:22px;padding:0 22px}.testimonials-intro h2{font-size:2.25rem}.testimonials-lead{font-size:1rem}.testimonials-divider{margin:26px 0 20px}.featured-comment{min-height:150px}.testimonial-columns{height:400px;gap:10px}.testimonial-stack{gap:10px;padding-bottom:10px}.comment-card{padding:13px;border-radius:13px}.comment-card p{font-size:.875rem!important}.comment-attribution{gap:8px;margin-top:12px}.comment-attribution img{width:32px;height:32px;flex-basis:32px}.comment-card small{font-size:.75rem}}
+@media(max-width:900px){.testimonials-section{padding:72px 0}.testimonials-inner{grid-template-columns:1fr;gap:30px;padding:0 25px}.testimonials-intro{padding:0}.testimonials-intro h2,.featured-comment{max-width:600px}.testimonials-divider{margin:30px 0 22px}.testimonials-wall{padding-top:34px}.testimonial-columns{height:460px}}
+@media(max-width:650px){.testimonials-section{padding:62px 0}.testimonials-inner{gap:22px;padding:0 22px}.testimonials-divider{margin:26px 0 20px}.featured-comment{min-height:150px}.testimonial-columns{height:400px;gap:10px}.testimonial-stack{gap:10px;padding-bottom:10px}.comment-card{padding:13px;border-radius:13px}.comment-card p{font-size:.875rem!important}.comment-attribution{gap:8px;margin-top:12px}.comment-attribution img{width:32px;height:32px;flex-basis:32px}.comment-card small{font-size:.75rem}}
 @media(prefers-reduced-motion:reduce){.testimonial-track{animation:none!important}.comment-change-enter-active,.comment-change-leave-active{transition:none}}
 </style>
