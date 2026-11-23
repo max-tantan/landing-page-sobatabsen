@@ -1,0 +1,23 @@
+export type Plan = {
+  id: 'starter' | 'hemat' | 'pro' | 'event' | 'custom'
+  name: string
+  type: 'bulanan' | 'eceran'
+  priceMonthly?: number
+  promoFirstMonth?: number
+  pricePerPerson?: number
+  capacity: { min?: number; max?: number }
+  badge?: string
+  features: string[]
+}
+
+export const PLANS: Plan[] = [
+  { id: 'starter', name: 'Starter', type: 'bulanan', priceMonthly: 0, capacity: { max: 40 }, features: ['Absen QR + selfie + lokasi', 'Dashboard & rekap', 'Ekspor Excel'] },
+  { id: 'hemat', name: 'Hemat', type: 'bulanan', priceMonthly: 50000, promoFirstMonth: 40000, capacity: { max: 200 }, badge: 'Promo', features: ['Semua fitur Starter', 'Banyak lokasi', 'Prioritas bantuan'] },
+  { id: 'pro', name: 'Pro', type: 'bulanan', priceMonthly: 100000, promoFirstMonth: 90000, capacity: { max: 500 }, badge: 'Paling populer', features: ['Semua fitur Hemat', 'Jadwal sesi lanjutan', 'Prioritas bantuan utama'] },
+  { id: 'event', name: 'Event', type: 'eceran', pricePerPerson: 400, capacity: { min: 41 }, badge: 'Sekali pakai', features: ['Min. 41 peserta', 'Aktif 3–7 hari', 'Semua fitur dasar', 'Foto terhapus saat acara selesai'] },
+  { id: 'custom', name: 'Custom Institusi', type: 'eceran', pricePerPerson: 430, capacity: { min: 501 }, features: ['Min. 501 anggota', 'Dibayar per bulan', 'Semua fitur Pro', 'Pendampingan onboarding'] },
+]
+
+export const rupiah = (amount: number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(amount)
+export const calcEvent = (people: number) => people * 400
+export const calcCustom = (members: number) => members * 430
