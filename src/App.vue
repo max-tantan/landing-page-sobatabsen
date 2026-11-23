@@ -142,7 +142,7 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
 
     <section class="compare-section" id="bandingkan"><div class="section-wrap"><div class="section-head"><h2>Bandingkan paket.</h2></div><div class="table-scroll"><table><thead><tr><th>Fitur</th><th>Starter</th><th>Hemat</th><th>Pro</th><th>Event</th><th>Custom</th></tr></thead><tbody><tr v-for="row in compareRows" :key="row[0]"><th>{{ row[0] }}</th><td v-for="(value,index) in row.slice(1)" :key="index" :class="{'check-cell':value==='✓'}">{{ value }}</td></tr></tbody></table></div></div></section>
 
-    <section class="faq-section section-wrap" id="faq"><div class="section-head"><h2>Pertanyaan umum.</h2><img class="faq-image" :src="faqImage" alt="SobatAbsen" loading="lazy" /></div><div class="faq-list"><article v-for="(faq,index) in faqs" :key="faq[0]" class="faq-item"><button :aria-expanded="activeFaq === index" @click="activeFaq=activeFaq === index ? -1 : index"><span>{{ faq[0] }}</span><b>{{ activeFaq === index ? '−' : '+' }}</b></button><p v-if="activeFaq === index">{{ faq[1] }}</p></article></div></section>
+    <section class="faq-section section-wrap" id="faq"><div class="section-head"><h2>Pertanyaan umum.</h2><img class="faq-image" :src="faqImage" alt="SobatAbsen" loading="lazy" /></div><div class="faq-list"><article v-for="(faq,index) in faqs" :key="faq[0]" class="faq-item"><button :aria-expanded="activeFaq === index" @click="activeFaq=activeFaq === index ? -1 : index"><span>{{ faq[0] }}</span><b>{{ activeFaq === index ? '−' : '+' }}</b></button><Transition name="faq-answer"><div v-if="activeFaq === index" class="faq-answer"><p>{{ faq[1] }}</p></div></Transition></article></div></section>
 
     <TestimonialsSection />
 
