@@ -289,5 +289,5 @@ li,td,th,label,input,select,button,.topbar nav a,.footer-nav a,.faq-item button,
 .privacy-list article{grid-template-columns:minmax(0,1fr) 20px}
 .steps .step .step-icon,.steps .step:first-child .step-icon{margin-top:0}
 @media(max-width:650px){.features .feature-card{min-height:0}.features .feature-card h3{margin-top:13px}.features .qr-art,.features .radius-art,.features .chart-art,.features .sheet-art,.features .locations-art,.features .status-art{display:none!important}}
-.plans-section .rubber-segment-plan{display:inline-grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);padding:3px;border:0;background:var(--rs-track);box-shadow:0 0 0 1px #e5e5e5}
+.plans-section .rubber-segment-plan{display:grid;width:max-content;margin-inline:auto;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);padding:3px;border:0;background:var(--rs-track);box-shadow:0 0 0 1px #e5e5e5}
 .plans-section .rubber-segment-plan .rubber-segment__option{height:calc(var(--rs-h) - var(--rs-inset)*2);min-width:var(--rs-min);padding:0 var(--rs-pad)}

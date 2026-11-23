@@ -383,12 +383,12 @@ const rootStyle = computed(() => ({
 .rubber-segment{position:relative;display:inline-grid;grid-auto-flow:column;grid-auto-columns:auto;align-items:center;padding:var(--rs-inset);border-radius:var(--rs-radius);background:var(--rs-track);vertical-align:middle;touch-action:pan-y;user-select:none;-webkit-tap-highlight-color:transparent}
 .rubber-segment[data-equal]{grid-auto-columns:minmax(0,1fr)}
 .rubber-segment__option,.rubber-segment__thumb-label{display:inline-flex;min-width:var(--rs-min);height:calc(var(--rs-h) - var(--rs-inset)*2);align-items:center;justify-content:center;gap:.375rem;margin:0;padding:0 var(--rs-pad);border:0;border-radius:var(--rs-thumb-radius);background:transparent;color:var(--rs-ink);font:inherit;font-size:var(--rs-font);font-weight:500;line-height:1;white-space:nowrap}
-.rubber-segment__option{position:relative;z-index:1;cursor:pointer;opacity:.7;transition:opacity 160ms ease,transform 160ms var(--rs-ease-out)}
+.rubber-segment__option{position:relative;z-index:0;cursor:pointer;opacity:.7;transition:opacity 160ms ease,transform 160ms var(--rs-ease-out)}
 .rubber-segment__option[aria-checked=true]{cursor:default;opacity:1}
 .rubber-segment__option:hover{opacity:.9}
 .rubber-segment__option:focus-visible{outline:2px solid var(--rs-thumb);outline-offset:3px}
 .rubber-segment__option[data-pressed]{transform:scale(.96)}
-.rubber-segment__thumb{position:absolute;inset:var(--rs-inset);display:grid;grid-auto-flow:column;grid-auto-columns:auto;pointer-events:none;background:var(--rs-thumb);color:var(--rs-ink-active)}
+.rubber-segment__thumb{position:absolute;z-index:1;inset:var(--rs-inset);display:grid;grid-auto-flow:column;grid-auto-columns:auto;pointer-events:none;background:var(--rs-thumb);color:var(--rs-ink-active)}
 .rubber-segment[data-equal] .rubber-segment__thumb{grid-auto-columns:minmax(0,1fr)}
 .rubber-segment__thumb-label{color:inherit}
 .rubber-segment[aria-disabled=true]{pointer-events:none;opacity:.5}
