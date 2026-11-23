@@ -8,11 +8,13 @@ import Antigravity from './components/Antigravity.vue'
 import RubberSegment from './components/RubberSegment.vue'
 import TestimonialsSection from './components/TestimonialsSection.vue'
 import faqImage from './assets/sobatabsen1.jpeg'
+import faqImage2 from './assets/sobatabsen2.jpeg'
 
 const planTab = ref<'monthly' | 'oneoff'>('monthly')
 const eventPeople = ref('250')
 const eventDays = ref(5)
 const customPeople = ref('800')
+const customCategory = ref('Sekolah')
 const activeFaq = ref(0)
 const menuOpen = ref(false)
 const checkout = ref(false)
@@ -39,15 +41,10 @@ const faqs = [
   ['Bagaimana jika anggota melebihi kapasitas?', 'SobatAbsen akan mengarahkan Anda memilih paket dengan kapasitas yang sesuai.'],
   ['Metode bayar apa saja?', 'Tersedia QRIS, Virtual Account, dan e-wallet. Pembayaran pada halaman ini masih simulasi.'],
 ]
-const compareRows = [
-  ['Kapasitas', '40', '200', '500', 'min. 41', 'min. 501'],
-  ['Absen QR + selfie + lokasi', '✓', '✓', '✓', '✓', '✓'],
-  ['Dashboard real-time', '✓', '✓', '✓', '✓', '✓'],
-  ['Ekspor Excel', '✓', '✓', '✓', '✓', '✓'],
-  ['Banyak lokasi', '—', '✓', '✓', '✓', '✓'],
-  ['Jadwal sesi lanjutan', '—', '—', '✓', '—', '✓'],
-  ['Pendampingan onboarding', '—', '—', '—', '—', '✓'],
-  ['Masa aktif', 'Selamanya', 'Bulanan', 'Bulanan', '3–7 hari', 'Bulanan'],
+const problemPairs = [
+  ['Antre & buang waktu', 'Proses absen menumpuk di jam sibuk dan memakan waktu banyak.', 'Absen cepat dalam hitungan detik', 'Anggota bisa mencatat kehadiran secara praktis dari perangkat masing-masing.'],
+  ['Rawan titip absen', 'Sulit memastikan kehadiran benar-benar dilakukan oleh orang yang bersangkutan.', 'Verifikasi lebih terarah', 'Membantu memastikan absensi dilakukan sesuai aturan dan ketentuan lembaga.'],
+  ['Rekap manual melelahkan', 'Harus menyalin dan merapikan data satu per satu sebelum bisa dibaca.', 'Laporan siap rapi', 'Data kehadiran tersusun otomatis dan lebih mudah dipantau kapan saja.'],
 ]
 
 function openCheckout(plan: Plan) {
@@ -80,7 +77,7 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
         <a href="#top" class="brand" aria-label="SobatAbsen beranda">sobat<span>absen</span><i>✳</i></a>
         <button class="menu-toggle" aria-label="Buka menu" :aria-expanded="menuOpen" aria-controls="primary-nav" @click="menuOpen = !menuOpen">{{ menuOpen ? '×' : '☰' }}</button>
         <nav id="primary-nav" :class="{ open: menuOpen }" aria-label="Navigasi utama" @click="menuOpen = false">
-          <a href="#cara-kerja">Cara Kerja</a><a href="#fitur">Fitur</a><a href="#keamanan">Keamanan</a><a href="#paket">Paket</a><a href="#faq">FAQ</a>
+          <a href="#cara-kerja">Cara Kerja</a><a href="#fitur">Fitur</a><a href="#paket">Paket</a><a href="#faq">FAQ</a>
           <a class="button button-small" href="#paket">Mulai Gratis</a>
         </nav>
       </div>
@@ -118,6 +115,16 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
 
     <section class="usecases section-wrap" id="untuk-siapa"><div class="section-head"><h2>Untuk berbagai lembaga.</h2></div><div class="usecase-grid"><article class="usecase-card"><span class="use-icon school-icon">▤</span><h3>Sekolah & Kampus</h3><p>Absen siswa per kelas, tanpa kertas.</p></article><article class="usecase-card"><span class="use-icon community-icon">✿</span><h3>Yayasan & Komunitas</h3><p>Pantau kehadiran kegiatan dan pengurus.</p></article><article class="usecase-card"><span class="use-icon factory-icon">▥</span><h3>Pabrik & Kantor</h3><p>Kehadiran karyawan di titik kerja yang tepat.</p></article><article class="usecase-card"><span class="use-icon event-icon">✳</span><h3>Event Organizer</h3><p>Absen peserta acara, aktif hanya beberapa hari.</p></article></div></section>
 
+    <section class="problems-section section-wrap" id="masalah-solusi">
+      <div class="section-head">
+        <h2>Berubahlah ke jalur yang rapih</h2>
+      </div>
+      <div class="problem-grid">
+        <article class="problem-panel problem-old"><div class="problem-panel-inner"><div class="problem-panel-head"><h3>Cara Lama</h3></div><ul><li v-for="pair in problemPairs" :key="pair[0]"><b>{{ pair[0] }}</b><span>{{ pair[1] }}</span></li></ul></div></article>
+        <article class="problem-panel problem-new"><div class="problem-panel-inner"><div class="problem-panel-head"><h3>Dengan SobatAbsen</h3></div><ul><li v-for="pair in problemPairs" :key="pair[2]"><b>{{ pair[2] }}</b><span>{{ pair[3] }}</span></li></ul></div></article>
+      </div>
+    </section>
+
     <section class="how-section" id="cara-kerja">
       <div class="section-wrap how-inner">
         <div class="section-head">
@@ -133,16 +140,12 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
 
     <section class="features section-wrap" id="fitur"><div class="section-head centered"><h2>Fitur utama.</h2></div><div class="feature-grid"><article class="feature-card feature-blue"><span class="feature-icon">▦</span><h3>Absen QR + Selfie</h3><p>Validasi kehadiran lewat lokasi.</p><div class="feature-art qr-art">▦</div></article><article class="feature-card"><span class="feature-icon">⌖</span><h3>Radius lokasi</h3><p>Atur radius absen, mulai dari 100 m.</p><div class="radius-art"></div></article><article class="feature-card"><span class="feature-icon">◷</span><h3>Dashboard real-time</h3><p>Pantau kehadiran saat itu juga.</p><div class="chart-art"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article><article class="feature-card"><span class="feature-icon">↧</span><h3>Rekap & ekspor Excel</h3><p>Unduh laporan harian.</p><div class="sheet-art">XLS <span>↓</span></div></article><article class="feature-card"><span class="feature-icon">⌖</span><h3>Banyak lokasi</h3><p>Kelola beberapa titik dalam satu dashboard.</p><div class="locations-art"><i>●</i><i>●</i><i>●</i><b>＋</b></div></article><article class="feature-card"><span class="feature-icon">✓</span><h3>Ubah status manual</h3><p>Catat status izin, sakit, atau alpa.</p><svg class="status-art" viewBox="0 0 112 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g class="status-chip status-chip-a"><rect x="8" y="8" width="72" height="16" rx="5" fill="#fff" stroke="#e4e4e4"/><circle cx="18" cy="16" r="3.5" fill="#1878ec"/><path d="M16.2 16.1l1.3 1.3 2.6-2.8" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="26" y="13" width="28" height="6" rx="2" fill="#d6e4f8"/></g><g class="status-chip status-chip-b"><rect x="8" y="28" width="72" height="16" rx="5" fill="#f6faff" stroke="#b8d4f5"/><circle cx="18" cy="36" r="3.5" fill="#ffb15c"/><rect x="26" y="33" width="22" height="6" rx="2" fill="#ffe3c2"/></g><g class="status-chip status-chip-c"><rect x="8" y="48" width="72" height="16" rx="5" fill="#fff" stroke="#e4e4e4"/><circle cx="18" cy="56" r="3.5" fill="#c5d0c9"/><rect x="26" y="53" width="34" height="6" rx="2" fill="#e8eee9"/></g><g class="status-pencil"><rect x="84" y="22" width="20" height="28" rx="6" fill="#1878ec"/><path d="M91 36.5l5.2-5.2 3.1 3.1-5.2 5.2H91v-3.1z" fill="#fff"/><path d="M95.4 32.1l1.55-1.55a1.4 1.4 0 0 1 2 0l1.5 1.5a1.4 1.4 0 0 1 0 2L98.9 35.6" stroke="#fff" stroke-width="1.1" stroke-linecap="round"/></g></svg></article></div></section>
 
-    <section class="privacy-section" id="keamanan"><div class="section-wrap privacy-inner"><div class="privacy-copy"><h2>Privasi anggota tetap terjaga.</h2></div><div class="privacy-list"><article><div><h3>Masa simpan foto</h3><p>Dihapus dalam 1–3 hari, sesuai pengaturan lembaga.</p></div><b>↗</b></article><article><div><h3>Hanya data yang perlu</h3><p>Identitas, lokasi saat absen, dan selfie untuk validasi.</p></div><b>↗</b></article><article><div><h3>Perlindungan anti kecurangan</h3><p>Selfie langsung dari kamera dan lokasi diperiksa.</p></div><b>↗</b></article><article><div><h3>Persetujuan yang jelas</h3><p>Anggota menyetujui penggunaan data di awal.</p></div><b>↗</b></article></div></div></section>
-
     <section class="plans-section section-wrap" id="paket"><div class="section-head centered"><h2>Mulai gratis. Naik kelas saat butuh.</h2></div><RubberSegment :items="[{ value: 'monthly', label: 'Langganan Bulanan' }, { value: 'oneoff', label: 'Eceran & Custom' }]" :value="planTab" track-color="#fff" thumb-color="#111" text-color="#111" active-text-color="#fff" size="md" :radius="999" :inset="3" equal-slots :stretch="100" :squash="3" :speed="1" :glide="75" draggable aria-label="Jenis paket" class-name="plan-tabs rubber-segment-plan" @change="handlePlanTabChange" />
-      <div v-if="planTab === 'monthly'" class="plans-grid"><article v-for="plan in PLANS.filter(p => p.type === 'bulanan')" :key="plan.id" class="plan-card" :class="{popular:plan.id === 'pro'}"><div class="plan-summary"><div class="plan-top"><h3>{{ plan.name }}</h3></div><p class="capacity">{{ plan.capacity.max }} anggota</p><div class="plan-price" v-if="plan.id === 'starter'"><strong>Gratis</strong><small>selamanya</small></div><div class="plan-price" v-else><strong>{{ rupiah(plan.promoFirstMonth!) }}</strong><small>Bulan pertama</small><small>Berikutnya {{ rupiah(plan.priceMonthly!) }}/bln</small></div><button class="button plan-button" :class="{'button-dark':plan.id !== 'pro'}" @click="openCheckout(plan)">{{ plan.id === 'starter' ? 'Mulai Gratis' : `Pilih ${plan.name}` }} <span>→</span></button></div><ul><li v-for="feature in plan.features" :key="feature"><b>✓</b>{{ feature }}</li></ul></article></div>
-      <div v-else class="plans-grid oneoff-grid"><article v-for="plan in PLANS.filter(p => p.type === 'eceran')" :key="plan.id" class="plan-card calc-card"><div class="plan-top"><h3>{{ plan.name }}</h3><span v-if="plan.badge" class="plan-badge">{{ plan.badge }}</span></div><p class="capacity">{{ plan.id === 'event' ? 'Absen acara tanpa komitmen bulanan.' : 'Solusi untuk institusi berskala besar.' }}</p><label class="calc-label">{{ plan.id === 'event' ? 'Jumlah peserta' : 'Jumlah anggota' }}<input v-if="plan.id === 'event'" v-model="eventPeople" type="text" inputmode="numeric" placeholder="250" @input="eventPeople=eventPeople.replace(/\D/g,'')" /><input v-else v-model="customPeople" type="text" inputmode="numeric" placeholder="800" @input="customPeople=customPeople.replace(/\D/g,'')" /></label><label v-if="plan.id === 'event'" class="calc-label">Lama aktif<select v-model="eventDays"><option :value="3">3 hari</option><option :value="5">5 hari</option><option :value="7">7 hari</option></select></label><p v-if="plan.id === 'event' && eventCount !== null && eventCount < 41" class="validation">Minimal 41 peserta. Untuk di bawahnya, <a href="#paket" @click="planTab='monthly'">Starter gratis cukup.</a></p><p v-if="plan.id === 'custom' && customCount !== null && customCount < 501" class="validation">Minimal 501 anggota. Pilih Pro untuk hingga 500.</p><div class="estimate"><small>{{ plan.id === 'event' ? 'Estimasi total' : 'Estimasi per bulan' }}</small><strong>{{ (plan.id === 'event' ? eventValid : customValid) ? rupiah(plan.id === 'event' ? calcEvent(eventCount!) : calcCustom(customCount!)) : '—' }}</strong><small>{{ plan.id === 'event' ? `${Number(eventPeople || 0).toLocaleString('id-ID')} peserta × Rp400 · aktif ${eventDays} hari` : `${Number(customPeople || 0).toLocaleString('id-ID')} anggota × Rp430` }}</small></div><button class="button plan-button button-dark" :disabled="plan.id === 'event' ? !eventValid : !customValid" @click="openCheckout(plan)">Pilih {{ plan.name }} <span>→</span></button></article></div>
+      <div v-if="planTab === 'monthly'" class="plans-grid"><article v-for="plan in PLANS.filter(p => p.type === 'bulanan')" :key="plan.id" class="plan-card" :class="{popular:plan.id === 'pro', value:plan.id === 'hemat'}"><div class="plan-summary"><div class="plan-top"><h3>{{ plan.name }}</h3><span v-if="plan.id === 'hemat'" class="plan-highlight">Paling hemat</span><span v-else-if="plan.id === 'pro'" class="plan-highlight">Paling lengkap</span></div><p class="capacity">{{ plan.capacity.max }} anggota</p><div class="plan-price" v-if="plan.id === 'starter'"><strong>Gratis</strong><small>selamanya</small></div><div class="plan-price" v-else><strong>{{ rupiah(plan.promoFirstMonth!) }}</strong><small>Bulan pertama</small><small>Berikutnya {{ rupiah(plan.priceMonthly!) }}/bln</small></div><button class="button plan-button" :class="{'button-dark':plan.id !== 'pro'}" @click="openCheckout(plan)">{{ plan.id === 'starter' ? 'Mulai Gratis' : `Pilih ${plan.name}` }} <span>→</span></button></div><ul><li v-for="feature in plan.features" :key="feature"><b>✓</b>{{ feature }}</li></ul></article></div>
+      <div v-else class="plans-grid oneoff-grid"><article v-for="plan in PLANS.filter(p => p.type === 'eceran')" :key="plan.id" class="plan-card calc-card" :class="{ value: plan.id === 'event', popular: plan.id === 'custom' }"><div class="plan-summary"><div class="plan-top"><h3>{{ plan.name }}</h3><span class="plan-highlight">{{ plan.id === 'event' ? plan.badge : 'Paling lengkap' }}</span></div><p class="capacity">{{ plan.id === 'event' ? 'Absen acara tanpa komitmen bulanan.' : 'Solusi untuk institusi berskala besar.' }}</p><label class="calc-label">{{ plan.id === 'event' ? 'Jumlah peserta' : 'Jumlah anggota' }}<input v-if="plan.id === 'event'" v-model="eventPeople" type="text" inputmode="numeric" placeholder="250" @input="eventPeople=eventPeople.replace(/\D/g,'')" /><input v-else v-model="customPeople" type="text" inputmode="numeric" placeholder="800" @input="customPeople=customPeople.replace(/\D/g,'')" /></label><label v-if="plan.id === 'custom'" class="calc-label">Kategori institusi<select v-model="customCategory"><option>Sekolah</option><option>Yayasan</option><option>Pabrik</option><option>Kantor</option><option>Event</option></select></label><label v-if="plan.id === 'event'" class="calc-label">Lama aktif<select v-model="eventDays"><option :value="3">3 hari</option><option :value="5">5 hari</option><option :value="7">7 hari</option></select></label><p v-if="plan.id === 'event' && eventCount !== null && eventCount < 41" class="validation">Minimal 41 peserta. Untuk di bawahnya, <a href="#paket" @click="planTab='monthly'">Starter gratis cukup.</a></p><p v-if="plan.id === 'custom' && customCount !== null && customCount < 501" class="validation">Minimal 501 anggota. Pilih Pro untuk hingga 500.</p><div class="estimate plan-price"><small>{{ plan.id === 'event' ? 'Estimasi total' : 'Estimasi per bulan' }}</small><strong>{{ (plan.id === 'event' ? eventValid : customValid) ? rupiah(plan.id === 'event' ? calcEvent(eventCount!) : calcCustom(customCount!)) : '—' }}</strong><small>{{ plan.id === 'event' ? `${Number(eventPeople || 0).toLocaleString('id-ID')} peserta × Rp400 · aktif ${eventDays} hari` : `${Number(customPeople || 0).toLocaleString('id-ID')} anggota × Rp430` }}</small></div><button class="button plan-button" :disabled="plan.id === 'event' ? !eventValid : !customValid" @click="openCheckout(plan)">Pilih {{ plan.name }} <span>→</span></button></div><ul><li v-for="feature in plan.features" :key="feature"><b>✓</b>{{ feature }}</li></ul></article></div>
     </section>
 
-    <section class="compare-section" id="bandingkan"><div class="section-wrap"><div class="section-head"><h2>Bandingkan paket.</h2></div><div class="table-scroll"><table><thead><tr><th>Fitur</th><th>Starter</th><th>Hemat</th><th>Pro</th><th>Event</th><th>Custom</th></tr></thead><tbody><tr v-for="row in compareRows" :key="row[0]"><th>{{ row[0] }}</th><td v-for="(value,index) in row.slice(1)" :key="index" :class="{'check-cell':value==='✓'}">{{ value }}</td></tr></tbody></table></div></div></section>
-
-    <section class="faq-section section-wrap" id="faq"><div class="section-head"><h2>Pertanyaan umum.</h2><img class="faq-image" :src="faqImage" alt="SobatAbsen" loading="lazy" /></div><div class="faq-list"><article v-for="(faq,index) in faqs" :key="faq[0]" class="faq-item"><button :aria-expanded="activeFaq === index" @click="activeFaq=activeFaq === index ? -1 : index"><span>{{ faq[0] }}</span><b>{{ activeFaq === index ? '−' : '+' }}</b></button><Transition name="faq-answer"><div v-if="activeFaq === index" class="faq-answer"><p>{{ faq[1] }}</p></div></Transition></article></div></section>
+    <section class="faq-section section-wrap" id="faq"><div class="section-head"><h2>Pertanyaan umum.</h2><span class="faq-image-swap"><img class="faq-image" :src="faqImage" alt="SobatAbsen" loading="lazy" /><img class="faq-image faq-image-hover" :src="faqImage2" alt="" aria-hidden="true" loading="lazy" /></span></div><div class="faq-list"><article v-for="(faq,index) in faqs" :key="faq[0]" class="faq-item"><button :aria-expanded="activeFaq === index" @click="activeFaq=activeFaq === index ? -1 : index"><span>{{ faq[0] }}</span><b>{{ activeFaq === index ? '−' : '+' }}</b></button><Transition name="faq-answer"><div v-if="activeFaq === index" class="faq-answer"><p>{{ faq[1] }}</p></div></Transition></article></div></section>
 
     <TestimonialsSection />
 
@@ -173,13 +176,16 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
         <nav class="footer-nav" aria-label="Footer">
           <a href="#cara-kerja">Cara Kerja</a>
           <a href="#fitur">Fitur</a>
-          <a href="#keamanan">Keamanan</a>
           <a href="#paket">Paket</a>
           <a href="#faq">FAQ</a>
         </nav>
       </div>
       <div class="footer-bottom">
         <span>© 2026 SobatAbsen</span>
+        <div class="footer-contact">
+          <a href="mailto:sobatabsen@gmail.com">sobatabsen@gmail.com</a>
+          <a href="https://wa.me/62812345678910">0812345678910</a>
+        </div>
       </div>
     </footer>
 
