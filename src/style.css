@@ -319,9 +319,10 @@ li,td,th,label,input,select,button,.topbar nav a,.footer-nav a,.faq-item button,
 .problems-section{padding-top:0;padding-bottom:88px}
 .problems-section .section-head{max-width:820px}
 .problem-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:42px}
-.problem-panel{padding:12px;border-radius:18px;background:#ededed}
+.problem-panel{padding:12px;border-radius:18px;background:#ededed;transition:transform .22s ease,box-shadow .22s ease}
 .problem-panel-inner{height:100%;padding:24px;border:1px solid #fff;border-radius:13px;background:#fff}
 .problem-new{background:#101828;box-shadow:0 20px 42px rgba(16,24,40,.22)}
+@media(hover:hover){.problem-panel:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(16,24,40,.12)}.problem-new:hover{box-shadow:0 24px 48px rgba(16,24,40,.28)}}
 .problem-new .problem-panel-inner{border-color:rgba(255,255,255,.16);background:linear-gradient(135deg,#182844,#101828)}
 .problem-panel h3{margin:0;color:#111;font-size:var(--text-card-heading)!important;font-weight:800;letter-spacing:-.5px}
 .problem-new h3{color:#fff}
