@@ -7,6 +7,7 @@ import VariableProximity from './components/VariableProximity.vue'
 import CheckoutStepper from './components/CheckoutStepper.vue'
 import RubberSegment from './components/RubberSegment.vue'
 import TestimonialsSection from './components/TestimonialsSection.vue'
+import MockupSection from './components/MockupSection.vue'
 import headerPhoto from './assets/header2.jpeg'
 import faqImage from './assets/sobatabsen1.jpeg'
 import faqImage2 from './assets/sobatabsen2.jpeg'
@@ -155,6 +156,8 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
         </div>
       </div>
     </section>
+
+    <MockupSection />
 
     <section class="features section-wrap" id="fitur"><div class="section-head centered"><h2><BlurText v-bind="blurHeading" tag="span" text="Fitur utama." /></h2></div><div class="feature-grid"><article class="feature-card feature-blue"><span class="feature-icon">▦</span><h3>Absen QR + Selfie</h3><p>Validasi kehadiran lewat lokasi.</p><div class="feature-art qr-art">▦</div></article><article class="feature-card"><span class="feature-icon">⌖</span><h3>Radius lokasi</h3><p>Atur radius absen, mulai dari 100 m.</p><div class="radius-art"></div></article><article class="feature-card"><span class="feature-icon">◷</span><h3>Dashboard real-time</h3><p>Pantau kehadiran saat itu juga.</p><div class="chart-art"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article><article class="feature-card"><span class="feature-icon">↧</span><h3>Rekap & ekspor Excel</h3><p>Unduh laporan harian.</p><div class="sheet-art">XLS <span>↓</span></div></article><article class="feature-card"><span class="feature-icon">⌖</span><h3>Banyak lokasi</h3><p>Kelola beberapa titik dalam satu dashboard.</p><div class="locations-art"><i>●</i><i>●</i><i>●</i><b>＋</b></div></article><article class="feature-card"><span class="feature-icon">✓</span><h3>Ubah status manual</h3><p>Catat status izin, sakit, atau alpa.</p><svg class="status-art" viewBox="0 0 112 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g class="status-chip status-chip-a"><rect x="8" y="8" width="72" height="16" rx="5" fill="#fff" stroke="#e4e4e4"/><circle cx="18" cy="16" r="3.5" fill="#1878ec"/><path d="M16.2 16.1l1.3 1.3 2.6-2.8" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="26" y="13" width="28" height="6" rx="2" fill="#d6e4f8"/></g><g class="status-chip status-chip-b"><rect x="8" y="28" width="72" height="16" rx="5" fill="#f6faff" stroke="#b8d4f5"/><circle cx="18" cy="36" r="3.5" fill="#ffb15c"/><rect x="26" y="33" width="22" height="6" rx="2" fill="#ffe3c2"/></g><g class="status-chip status-chip-c"><rect x="8" y="48" width="72" height="16" rx="5" fill="#fff" stroke="#e4e4e4"/><circle cx="18" cy="56" r="3.5" fill="#c5d0c9"/><rect x="26" y="53" width="34" height="6" rx="2" fill="#e8eee9"/></g><g class="status-pencil"><rect x="84" y="22" width="20" height="28" rx="6" fill="#1878ec"/><path d="M91 36.5l5.2-5.2 3.1 3.1-5.2 5.2H91v-3.1z" fill="#fff"/><path d="M95.4 32.1l1.55-1.55a1.4 1.4 0 0 1 2 0l1.5 1.5a1.4 1.4 0 0 1 0 2L98.9 35.6" stroke="#fff" stroke-width="1.1" stroke-linecap="round"/></g></svg></article></div></section>
 
