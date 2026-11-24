@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import BlurText from './BlurText.vue'
 
 const comments = [
   'Absensi QR dan selfie membuat pencatatan hadir lebih praktis.',
@@ -59,7 +60,7 @@ onBeforeUnmount(() => {
   <section class="testimonials-section" aria-labelledby="testimonials-title">
     <div class="testimonials-inner">
       <div class="testimonials-intro">
-        <h2 id="testimonials-title">Kehadiran yang lebih mudah dikelola.</h2>
+        <h2 id="testimonials-title"><BlurText tag="span" text="Kehadiran yang lebih mudah dikelola." effect="blur" animate-by="words" direction="top" stagger-from="start" trigger="view" :delay="40" :step-duration="0.28" :blur="8" :distance="18" /></h2>
         <a class="testimonials-cta" href="#paket"><span aria-hidden="true">✳</span> Lihat paket <b aria-hidden="true">↗</b></a>
 
         <div class="testimonials-divider"></div>
