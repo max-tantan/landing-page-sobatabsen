@@ -95,7 +95,7 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
     <header class="topbar" :class="{ 'menu-open': menuOpen }">
       <div class="topbar-pill">
         <a href="#top" class="brand" aria-label="SobatAbsen beranda">sobat<span>absen</span><i>✳</i></a>
-        <button class="menu-toggle" aria-label="Buka menu" :aria-expanded="menuOpen" aria-controls="primary-nav" @click="menuOpen = !menuOpen">{{ menuOpen ? '×' : '☰' }}</button>
+        <button class="menu-toggle" aria-label="Buka menu" :aria-expanded="menuOpen" aria-controls="primary-nav" @click="menuOpen = !menuOpen"><span></span><span></span><span></span></button>
         <nav id="primary-nav" :class="{ open: menuOpen }" aria-label="Navigasi utama" @click="menuOpen = false">
           <a href="#cara-kerja">Cara Kerja</a><a href="#fitur">Fitur</a><a href="#paket">Paket</a><a href="#faq">FAQ</a>
           <a class="button button-small" href="#paket">Mulai Gratis</a>
@@ -122,8 +122,8 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
         </div>
       </div>
       <div class="hero-corner" aria-hidden="true">
-        <SplitText text="sobat" tag="span" color="#111" effect="rise" split-type="chars" trigger="load" :delay="35" :duration="0.8" :mask="true" text-align="left" />
-        <SplitText text="absen" tag="span" color="#1878ec" effect="rise" split-type="chars" trigger="load" :delay="35" :duration="0.8" :mask="true" text-align="left" />
+        <SplitText text="sobat" tag="span" color="#111" effect="rise" split-type="chars" trigger="load" :delay="35" :duration="1.6" :mask="true" text-align="left" />
+        <SplitText text="absen" tag="span" color="#1878ec" effect="rise" split-type="chars" trigger="load" :delay="35" :duration="1.6" :mask="true" text-align="left" />
         <i>✳</i>
       </div>
     </section>
@@ -151,11 +151,6 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
           </div>
           <div class="steps" aria-label="Alur absensi" @mouseleave="resetHoverStep" @focusout="resetHoverStep">
             <button v-for="(step, index) in howSteps" :key="step.title" type="button" class="step" :class="{ 'is-active': activeStep === index }" :aria-pressed="selectedStep === index" @mouseenter="setHoverStep(index)" @focus="setHoverStep(index)" @click="selectStep(index)">
-              <span class="step-icon" aria-hidden="true">
-                <svg v-if="index === 0" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2.5 2.5" opacity=".45"/><circle cx="12" cy="12" r="4.8" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
-                <svg v-else-if="index === 1" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><path d="M13 13.5h3.2M19.5 13.5H18M13 17h2M16.5 17H19.5M13 20.5h6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                <svg v-else viewBox="0 0 24 24" fill="none"><rect x="3.5" y="6.5" width="17" height="12.5" rx="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12.5" r="3.4" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 6.5l1.2-2h4.6l1.2 2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-              </span>
               <h3>{{ step.title }}</h3>
               <p>{{ step.desc }}</p>
             </button>

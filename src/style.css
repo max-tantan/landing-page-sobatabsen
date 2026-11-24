@@ -27,7 +27,10 @@
 .hero-note b{color:rgba(255,255,255,.6)}
 .hero-bottom{left:0;right:0;bottom:0;padding:0 6vw;border-color:rgba(255,255,255,.28);color:rgba(255,255,255,.88)}
 .hero-corner{position:absolute;right:0;bottom:0;z-index:2;display:flex;align-items:center;height:120px;padding:0 64px;border-top-left-radius:40px;background:#fff;color:#111;font-size:44px;font-weight:800;letter-spacing:-1.8px}
-.hero-corner i{margin-left:8px;color:#1878ec;font-size:32px;font-style:normal;vertical-align:top}
+.hero-corner i{margin-left:8px;color:#1878ec;font-size:32px;font-style:normal;vertical-align:top;transition:transform .3s ease}
+.hero-corner .split-parent{transition:transform .3s ease}
+.hero-corner:hover .split-parent{transform:translateY(-5px)}
+.hero-corner:hover i{transform:rotate(90deg)}
 .trust-types{color:rgba(255,255,255,.82)}
 .attendance-card{border-radius:16px;box-shadow:none;transform:rotate(1deg)}
 .check-ring{background:#e7f1ff;border-color:#c5dcff}
@@ -241,7 +244,11 @@
   .brand{display:inline-flex;align-items:center;line-height:1;font-size:19px;color:#111}
   .brand i{vertical-align:middle;margin-left:4px}
   .brand>span{color:#1878ec}
-  .menu-toggle{width:36px;height:36px;border-radius:0;background:transparent;color:#111;font-size:22px}
+  .menu-toggle{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:36px;height:36px;border-radius:0;background:transparent;color:#111;font-size:22px}
+  .menu-toggle span{display:block;width:18px;height:2px;border-radius:2px;background:currentColor;transition:transform .28s ease,opacity .2s ease}
+  .topbar.menu-open .menu-toggle span:first-child{transform:translateY(6px) rotate(45deg)}
+  .topbar.menu-open .menu-toggle span:nth-child(2){opacity:0}
+  .topbar.menu-open .menu-toggle span:last-child{transform:translateY(-6px) rotate(-45deg)}
   .topbar nav{top:100%;left:0;right:0;padding:6px 16px 12px;border:0;border-bottom:1px solid #e8edf2;border-radius:0;background:#fff;box-shadow:none}
   .topbar nav a{padding:11px 0;font-size:13px;color:#111}
   .topbar nav .login-link,.topbar nav .button-small{display:none}

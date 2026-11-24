@@ -14,6 +14,7 @@ const props = withDefaults(defineProps<{
   effect?: Effect
   splitType?: SplitKind
   delay?: number
+  initialDelay?: number
   duration?: number
   ease?: string
   staggerFrom?: StaggerFrom
@@ -30,6 +31,7 @@ const props = withDefaults(defineProps<{
   to?: AnimationValues
 }>(), {
   tag: 'span', className: '', effect: 'rise', splitType: 'chars', delay: 35,
+  initialDelay: 0,
   duration: 0.8, staggerFrom: 'start', trigger: 'view', loop: false,
   loopDelay: 1.5, mask: false, threshold: 0.1, rootMargin: '-100px', textAlign: 'left',
 })
