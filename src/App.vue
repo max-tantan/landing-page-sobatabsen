@@ -4,9 +4,9 @@ import { PLANS, rupiah, calcEvent, calcCustom, type Plan } from './data/plans'
 import { animatePlanTabChange, setupAnimations } from './animations'
 import SplitText from './components/SplitText.vue'
 import CheckoutStepper from './components/CheckoutStepper.vue'
-import Antigravity from './components/Antigravity.vue'
 import RubberSegment from './components/RubberSegment.vue'
 import TestimonialsSection from './components/TestimonialsSection.vue'
+import headerPhoto from './assets/header2.jpeg'
 import faqImage from './assets/sobatabsen1.jpeg'
 import faqImage2 from './assets/sobatabsen2.jpeg'
 import stepImage1 from './assets/langkah-langkah/gambar1.jpg'
@@ -19,8 +19,11 @@ const eventDays = ref(5)
 const customPeople = ref('800')
 const customCategory = ref('Sekolah')
 const activeStep = ref(0)
+const selectedStep = ref(0)
 const canHover = window.matchMedia('(hover: hover)').matches
 function setHoverStep(index: number) { if (canHover) activeStep.value = index }
+function selectStep(index: number) { selectedStep.value = index; activeStep.value = index }
+function resetHoverStep() { activeStep.value = selectedStep.value }
 const howSteps = [
   { title: 'Aktifkan lokasi', desc: 'Absen dari radius yang ditentukan.', img: stepImage1 },
   { title: 'Scan QR', desc: 'Gunakan QR yang tersedia di lokasi.', img: stepImage2 },
@@ -95,17 +98,7 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
     </header>
 
     <section class="hero" id="top">
-      <Antigravity
-        class="hero-antigravity"
-        :colors="['#1268d2', '#1878ec', '#4ea1ff', '#c5e0ff']"
-        :count="1500"
-        :magnet-radius="9"
-        :ring-radius="7"
-        :particle-size="0.5"
-        :auto-animate="true"
-        :interactive="true"
-        :click-burst="true"
-      />
+      <img class="hero-photo" :src="headerPhoto" alt="" aria-hidden="true" />
       <div class="hero-text">
         <h1 class="hero-title">
           <SplitText text="Absen selesai" tag="span" class-name="hero-split" effect="rise" split-type="chars" trigger="load" :delay="50" :duration="1.2" :mask="true" />
@@ -145,8 +138,8 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
           <div class="how-visual" aria-hidden="true">
             <div v-for="(step, index) in howSteps" :key="step.title" class="how-visual-panel" :class="{ active: activeStep === index }"><img :src="step.img" :alt="step.title" /></div>
           </div>
-          <div class="steps" aria-label="Alur absensi" @mouseleave="setHoverStep(0)" @focusout="setHoverStep(0)">
-            <button v-for="(step, index) in howSteps" :key="step.title" type="button" class="step" :class="{ 'is-active': activeStep === index }" @mouseenter="setHoverStep(index)" @focus="setHoverStep(index)" @click="activeStep = index">
+          <div class="steps" aria-label="Alur absensi" @mouseleave="resetHoverStep" @focusout="resetHoverStep">
+            <button v-for="(step, index) in howSteps" :key="step.title" type="button" class="step" :class="{ 'is-active': activeStep === index }" :aria-pressed="selectedStep === index" @mouseenter="setHoverStep(index)" @focus="setHoverStep(index)" @click="selectStep(index)">
               <span class="step-icon" aria-hidden="true">
                 <svg v-if="index === 0" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2.5 2.5" opacity=".45"/><circle cx="12" cy="12" r="4.8" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
                 <svg v-else-if="index === 1" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.5"/><path d="M13 13.5h3.2M19.5 13.5H18M13 17h2M16.5 17H19.5M13 20.5h6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
