@@ -61,12 +61,6 @@ const faqs = [
   ['Bagaimana jika anggota melebihi kapasitas?', 'SobatAbsen akan mengarahkan Anda memilih paket dengan kapasitas yang sesuai.'],
   ['Metode bayar apa saja?', 'Tersedia QRIS, Virtual Account, dan e-wallet. Pembayaran pada halaman ini masih simulasi.'],
 ]
-const problemPairs = [
-  ['Antre & buang waktu', 'Absen cepat dalam hitungan detik'],
-  ['Rawan titip absen', 'Verifikasi lebih terarah'],
-  ['Rekap manual melelahkan', 'Laporan siap rapi'],
-]
-
 function openCheckout(plan: Plan) {
   selectedPlan.value = plan
   step.value = 1
@@ -129,16 +123,6 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
     </section>
 
     <section class="usecases section-wrap" id="untuk-siapa"><div class="section-head"><h2><BlurText v-bind="blurHeading" tag="span" text="Untuk berbagai lembaga." /></h2></div><div class="usecase-grid"><article class="usecase-card"><span class="use-icon school-icon">▤</span><h3>Sekolah & Kampus</h3><p>Absen siswa per kelas, tanpa kertas.</p></article><article class="usecase-card"><span class="use-icon community-icon">✿</span><h3>Yayasan & Komunitas</h3><p>Pantau kehadiran kegiatan dan pengurus.</p></article><article class="usecase-card"><span class="use-icon factory-icon">▥</span><h3>Pabrik & Kantor</h3><p>Kehadiran karyawan di titik kerja yang tepat.</p></article><article class="usecase-card"><span class="use-icon event-icon">✳</span><h3>Event Organizer</h3><p>Absen peserta acara, aktif hanya beberapa hari.</p></article></div></section>
-
-    <section class="problems-section section-wrap" id="masalah-solusi">
-      <div class="section-head">
-        <h2><BlurText v-bind="blurHeading" tag="span" text="Berubahlah ke jalur yang rapih" /></h2>
-      </div>
-      <div class="problem-grid">
-        <article class="problem-panel problem-old"><div class="problem-panel-inner"><div class="problem-panel-head"><h3>Cara Lama</h3></div><ul><li v-for="pair in problemPairs" :key="pair[0]"><b>{{ pair[0] }}</b></li></ul></div></article>
-        <article class="problem-panel problem-new"><div class="problem-panel-inner"><div class="problem-panel-head"><h3>Dengan SobatAbsen</h3></div><ul><li v-for="pair in problemPairs" :key="pair[1]"><b>{{ pair[1] }}</b></li></ul></div></article>
-      </div>
-    </section>
 
     <section class="how-section" id="cara-kerja">
       <div class="section-wrap">
