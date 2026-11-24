@@ -25,13 +25,21 @@ function closePreview() { preview.value?.close() }
       <h2 id="mockup-title"><BlurText v-bind="heading" tag="span" text="Semua kehadiran dalam satu layar." /></h2>
     </div>
     <div class="mockup-viewer">
-      <button class="mockup-arrow mockup-prev" type="button" aria-label="Sebelumnya" @click="step(-1)">←</button>
+      <button class="mockup-arrow mockup-prev" type="button" aria-label="Sebelumnya" @click="step(-1)">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
       <button class="mockup-stage" type="button" aria-label="Perbesar tampilan" @click="openPreview">
         <Transition name="mockup-swap" mode="out-in">
           <img :key="index" :src="slides[index].img" :alt="slides[index].alt" loading="lazy" />
         </Transition>
       </button>
-      <button class="mockup-arrow mockup-next" type="button" aria-label="Berikutnya" @click="step(1)">→</button>
+      <button class="mockup-arrow mockup-next" type="button" aria-label="Berikutnya" @click="step(1)">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
     </div>
     <div class="mockup-controls">
       <div class="mockup-dots" role="group" aria-label="Pilih tampilan">
@@ -49,7 +57,7 @@ function closePreview() { preview.value?.close() }
 <style scoped>
 .mockup-section{padding-top:96px;padding-bottom:96px}
 .mockup-section .section-head h2{max-width:680px;margin:0}
-.mockup-viewer{display:grid;grid-template-columns:44px minmax(0,760px) 44px;justify-content:center;align-items:center;gap:14px;margin:36px auto 0}
+.mockup-viewer{display:grid;grid-template-columns:50px minmax(0,760px) 50px;justify-content:center;align-items:center;gap:16px;margin:36px auto 0}
 .mockup-stage{width:100%;aspect-ratio:1460/1268;padding:10px;border:1px solid #fff;border-radius:18px;background:var(--mint2);cursor:zoom-in}
 .mockup-dialog{width:min(92vw,1200px);max-width:none;max-height:92dvh;padding:0;border:0;background:transparent;overflow:visible}
 .mockup-dialog::backdrop{background:rgba(5,11,18,.82);backdrop-filter:blur(6px)}
@@ -65,9 +73,12 @@ function closePreview() { preview.value?.close() }
 .mockup-dots button::after{content:'';width:8px;height:8px;border-radius:999px;background:var(--line);transition:width .2s ease,background-color .2s ease}
 .mockup-dots button.active::after{width:22px;background:var(--green)}
 .mockup-caption{margin:0;color:var(--muted);font-size:13px!important;font-weight:600}
-.mockup-arrow{width:44px;height:44px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font-size:17px;line-height:1;transition:border-color .2s ease,color .2s ease,transform .12s ease}
-.mockup-arrow:hover{border-color:var(--green);color:var(--green)}
-.mockup-arrow:active{transform:translateY(1px)}
-@media(max-width:950px){.mockup-viewer{grid-template-columns:1fr 1fr;gap:12px}.mockup-stage{grid-column:1/-1;grid-row:1}.mockup-prev{grid-column:1;grid-row:2;justify-self:end}.mockup-next{grid-column:2;grid-row:2;justify-self:start}}
+.mockup-arrow{display:grid;place-items:center;width:50px;height:50px;border:1.5px solid #c2cbd4;border-radius:999px;background:#ffffff;color:var(--ink);box-shadow:0 4px 14px rgba(15,23,42,.1),0 1px 3px rgba(15,23,42,.06);transition:all .2s cubic-bezier(.16,1,.3,1);cursor:pointer;flex-shrink:0}
+.mockup-arrow svg{display:block;transition:transform .2s ease}
+.mockup-arrow.mockup-prev:hover svg{transform:translateX(-2px)}
+.mockup-arrow.mockup-next:hover svg{transform:translateX(2px)}
+.mockup-arrow:hover{background:var(--green);border-color:var(--green);color:#ffffff;box-shadow:0 6px 20px rgba(24,120,236,.35);transform:scale(1.08)}
+.mockup-arrow:active{transform:scale(.95)}
+@media(max-width:950px){.mockup-viewer{grid-template-columns:1fr 1fr;gap:16px}.mockup-stage{grid-column:1/-1;grid-row:1}.mockup-prev{grid-column:1;grid-row:2;justify-self:end}.mockup-next{grid-column:2;grid-row:2;justify-self:start}}
 @media(max-width:650px){.mockup-section{padding-top:70px;padding-bottom:70px}.mockup-viewer{margin-top:26px}.mockup-controls{flex-wrap:wrap;justify-content:center}.mockup-caption{order:3;width:100%;text-align:center}.mockup-close{top:6px;right:6px;background:rgba(17,17,17,.85)}}
 </style>
