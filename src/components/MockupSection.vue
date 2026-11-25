@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import BlurText from './BlurText.vue'
-import beranda from '../assets/mockup-beranda.png'
-import kehadiran from '../assets/mockup-kehadiran.png'
-import sesiAbsensi from '../assets/mockup-sesi-absensi.png'
+import beranda from '../assets/mockup-beranda.webp'
+import kehadiran from '../assets/mockup-kehadiran.webp'
+import sesiAbsensi from '../assets/mockup-sesi-absensi.webp'
 
 const heading = { effect: 'blur', 'animate-by': 'words', direction: 'top', 'stagger-from': 'start', trigger: 'view', delay: 40, 'step-duration': 0.28, blur: 8, distance: 18 } as const
 const slides = [

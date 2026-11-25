@@ -10,12 +10,17 @@ import TestimonialsSection from './components/TestimonialsSection.vue'
 import MockupSection from './components/MockupSection.vue'
 import SplitText from './components/SplitText.vue'
 import FeaturesShowcase from './components/FeaturesShowcase.vue'
-import headerPhoto from './assets/header2.jpeg'
-import faqImage from './assets/sobatabsen1.jpeg'
-import faqImage2 from './assets/sobatabsen2.jpeg'
-import stepImage1 from './assets/langkah-langkah/gambar1.jpg'
-import stepImage2 from './assets/langkah-langkah/gambar2.jpg'
-import stepImage3 from './assets/langkah-langkah/gambar3.jpg'
+import AccordionGallery from './components/AccordionGallery.vue'
+import headerPhoto from './assets/header2.webp'
+import faqImage from './assets/sobatabsen1.webp'
+import faqImage2 from './assets/sobatabsen2.webp'
+import stepImage1 from './assets/langkah-langkah/gambar1.webp'
+import stepImage2 from './assets/langkah-langkah/gambar2.webp'
+import stepImage3 from './assets/langkah-langkah/gambar3.webp'
+import audienceSchool from './assets/Section Untuk/section-sekolah.webp'
+import audienceCommunity from './assets/Section Untuk/section-yayasan.webp'
+import audienceOffice from './assets/Section Untuk/section-kantor.webp'
+import audienceEvent from './assets/Section Untuk/section-eo.webp'
 
 const blurHeading = { effect: 'blur', 'animate-by': 'words', direction: 'top', 'stagger-from': 'start', trigger: 'view', delay: 40, 'step-duration': 0.28, blur: 8, distance: 18 } as const
 const heroProximityRef = ref<HTMLElement | null>(null)
@@ -25,15 +30,16 @@ const eventDays = ref(5)
 const customPeople = ref('800')
 const customCategory = ref('Sekolah')
 const activeStep = ref(0)
-const selectedStep = ref(0)
-const canHover = window.matchMedia('(hover: hover)').matches
-function setHoverStep(index: number) { if (canHover) activeStep.value = index }
-function selectStep(index: number) { selectedStep.value = index; activeStep.value = index }
-function resetHoverStep() { activeStep.value = selectedStep.value }
 const howSteps = [
   { title: 'Aktifkan lokasi', desc: 'Absen dari radius yang ditentukan.', img: stepImage1 },
   { title: 'Scan QR', desc: 'Gunakan QR yang tersedia di lokasi.', img: stepImage2 },
   { title: 'Ambil selfie', desc: 'Gunakan kamera langsung, bukan galeri.', img: stepImage3 },
+]
+const audienceItems = [
+  { image: audienceSchool, label: 'Sekolah & Kampus', alt: 'Absen siswa per kelas, tanpa kertas.' },
+  { image: audienceCommunity, label: 'Yayasan & Komunitas', alt: 'Pantau kehadiran kegiatan dan pengurus.' },
+  { image: audienceOffice, label: 'Pabrik & Kantor', alt: 'Kehadiran karyawan di titik kerja yang tepat.' },
+  { image: audienceEvent, label: 'Event Organizer', alt: 'Absen peserta acara, aktif hanya beberapa hari.' },
 ]
 const activeFaq = ref(0)
 const menuOpen = ref(false)
@@ -122,7 +128,32 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
       </div>
     </section>
 
-    <section class="usecases section-wrap" id="untuk-siapa"><div class="section-head"><h2><BlurText v-bind="blurHeading" tag="span" text="Untuk berbagai lembaga." /></h2></div><div class="usecase-grid"><article class="usecase-card"><span class="use-icon school-icon">▤</span><h3>Sekolah & Kampus</h3><p>Absen siswa per kelas, tanpa kertas.</p></article><article class="usecase-card"><span class="use-icon community-icon">✿</span><h3>Yayasan & Komunitas</h3><p>Pantau kehadiran kegiatan dan pengurus.</p></article><article class="usecase-card"><span class="use-icon factory-icon">▥</span><h3>Pabrik & Kantor</h3><p>Kehadiran karyawan di titik kerja yang tepat.</p></article><article class="usecase-card"><span class="use-icon event-icon">✳</span><h3>Event Organizer</h3><p>Absen peserta acara, aktif hanya beberapa hari.</p></article></div></section>
+    <section class="usecases section-wrap" id="untuk-siapa">
+      <div class="section-head">
+        <h2><BlurText v-bind="blurHeading" tag="span" text="Untuk berbagai lembaga." /></h2>
+      </div>
+      <AccordionGallery
+        class="mt-12"
+        :items="audienceItems"
+        :default-index="0"
+        :expand-ratio="0.42"
+        trigger="hover"
+        accent-color="#1878ec"
+        overlay-color="#060010"
+        text-color="#ffffff"
+        grayscale
+        show-labels
+        :duration="0.5"
+        ease="power3.out"
+        :parallax="0.35"
+        :tilt="6"
+        :stagger="0.05"
+        :height="480"
+        :gap="8"
+        :radius="14"
+        orientation="horizontal"
+      />
+    </section>
 
     <section class="how-section" id="cara-kerja">
       <div class="section-wrap">
@@ -133,8 +164,8 @@ onBeforeUnmount(() => { cleanupAnimations(); cleanupPlanTabAnimation() })
           <div class="how-visual" aria-hidden="true">
             <div v-for="(step, index) in howSteps" :key="step.title" class="how-visual-panel" :class="{ active: activeStep === index }"><img :src="step.img" :alt="step.title" /></div>
           </div>
-          <div class="steps" aria-label="Alur absensi" @mouseleave="resetHoverStep" @focusout="resetHoverStep">
-            <button v-for="(step, index) in howSteps" :key="step.title" type="button" class="step" :class="{ 'is-active': activeStep === index }" :aria-pressed="selectedStep === index" @mouseenter="setHoverStep(index)" @focus="setHoverStep(index)" @click="selectStep(index)">
+          <div class="steps" role="tablist" aria-label="Alur absensi">
+            <button v-for="(step, index) in howSteps" :key="step.title" type="button" role="tab" :aria-selected="activeStep === index" class="step" :class="{ 'is-active': activeStep === index }" @click="activeStep = index" @mouseenter="activeStep = index">
               <h3>{{ step.title }}</h3>
               <p>{{ step.desc }}</p>
             </button>

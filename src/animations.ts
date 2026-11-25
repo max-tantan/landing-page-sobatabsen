@@ -61,7 +61,7 @@ export function setupAnimations() {
         )
       })
 
-      document.querySelectorAll('.usecase-grid, .feature-grid, .faq-list, .testimonials-intro, .testimonials-wall').forEach((group) => {
+      document.querySelectorAll('.feature-grid, .faq-list, .testimonials-intro, .testimonials-wall').forEach((group) => {
         const items = Array.from(group.children)
         if (!items.length) return
         gsap.fromTo(items,

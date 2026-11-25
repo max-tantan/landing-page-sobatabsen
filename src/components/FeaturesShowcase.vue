@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import BlurText from './BlurText.vue'
-import mockupLokasi from '../assets/section fitur/mockup1.png'
-import mockupQr from '../assets/section fitur/mockup2.png'
-import mockupSelfie from '../assets/section fitur/mockup3.png'
-import mockupAdmin from '../assets/mockup-kehadiran.png'
+import mockupLokasi from '../assets/section fitur/mockup1.webp'
+import mockupQr from '../assets/section fitur/mockup2.webp'
+import mockupSelfie from '../assets/section fitur/mockup3.webp'
+import mockupAdmin from '../assets/mockup-kehadiran.webp'
 
 const heading = {
   effect: 'blur',
