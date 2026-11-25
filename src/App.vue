@@ -7,6 +7,7 @@ import HeroSection from './components/sections/HeroSection.vue'
 import AudienceSection from './components/sections/AudienceSection.vue'
 import HowItWorksSection from './components/sections/HowItWorksSection.vue'
 import PlansSection from './components/sections/PlansSection.vue'
+import ComparisonSection from './components/sections/ComparisonSection.vue'
 import FaqSection from './components/sections/FaqSection.vue'
 import CtaSection from './components/sections/CtaSection.vue'
 import SiteFooter from './components/sections/SiteFooter.vue'
@@ -35,6 +36,7 @@ onBeforeUnmount(() => cleanupAnimations())
     <MockupSection />
     <FeaturesShowcase />
     <PlansSection @select="openCheckout" />
+    <ComparisonSection />
     <FaqSection />
     <TestimonialsSection />
     <CtaSection />

@@ -156,6 +156,25 @@
       "daySuffix": " hari"
     }
   },
+  "comparison": {
+    "headingPrefix": "Cara lama vs",
+    "caption": "Perbandingan absen cara lama dan absen dengan SobatAbsen",
+    "pillAria": "Pilih tampilan perbandingan",
+    "columns": {
+      "aspect": "Aspek",
+      "legacy": "Cara lama",
+      "sobat": "SobatAbsen"
+    },
+    "rows": [
+      { "aspect": "Cara absen", "legacy": "Tulis nama di buku hadir", "sobat": "Scan QR lewat browser ponsel, tanpa aplikasi" },
+      { "aspect": "Pengecekan lokasi", "legacy": "Lokasi tidak tercatat", "sobat": "Hanya sah di radius yang ditentukan" },
+      { "aspect": "Bukti kehadiran", "legacy": "Tanda tangan di kertas", "sobat": "QR + selfie langsung dari kamera" },
+      { "aspect": "Rekap & laporan", "legacy": "Dihitung dan diketik manual", "sobat": "Rekap real-time, ekspor Excel" },
+      { "aspect": "Status manual", "legacy": "Diubah dengan coretan", "sobat": "Admin ubah status dari halaman rekap" },
+      { "aspect": "Banyak lokasi", "legacy": "Satu buku hadir per titik", "sobat": "Banyak titik, satu dashboard (Hemat ke atas)" },
+      { "aspect": "Masa aktif sesi", "legacy": "Buku hadir dipakai sampai acara selesai", "sobat": "Sesi sesuai jadwal; paket Event aktif 3–7 hari" }
+    ]
+  },
   "faq": {
     "heading": "Pertanyaan umum.",
     "alt": "SobatAbsen",
