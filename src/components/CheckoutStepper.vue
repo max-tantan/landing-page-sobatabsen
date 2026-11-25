@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import content from '../data/content.json'
+
 withDefaults(defineProps<{
   steps: string[]
   currentStep: number
@@ -6,7 +8,7 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-  <nav class="checkout-stepper" aria-label="Progres checkout">
+  <nav class="checkout-stepper" :aria-label="content.checkout.stepperAria">
     <ol>
       <li v-for="(label, index) in steps" :key="label" :class="{ active: currentStep === index + 1, complete: currentStep > index + 1 }">
         <span class="stepper-marker" :aria-current="currentStep === index + 1 ? 'step' : undefined">

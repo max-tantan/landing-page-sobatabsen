@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import content from '../data/content.json'
+import { blurHeading } from '../data/ui'
 import BlurText from './BlurText.vue'
 import beranda from '../assets/mockup-beranda.webp'
 import kehadiran from '../assets/mockup-kehadiran.webp'
 import sesiAbsensi from '../assets/mockup-sesi-absensi.webp'
 
-const heading = { effect: 'blur', 'animate-by': 'words', direction: 'top', 'stagger-from': 'start', trigger: 'view', delay: 40, 'step-duration': 0.28, blur: 8, distance: 18 } as const
-const slides = [
-  { label: 'Beranda', img: beranda, alt: 'Dashboard beranda dengan ringkasan kehadiran anggota' },
-  { label: 'Kehadiran dan rekap', img: kehadiran, alt: 'Daftar kehadiran anggota beserta status dan hasil rekap harian' },
-  { label: 'Sesi absensi', img: sesiAbsensi, alt: 'Daftar sesi absensi dengan lokasi, jam, dan toleransi' },
-]
+const { mockup } = content
+const images = [beranda, kehadiran, sesiAbsensi]
+const slides = mockup.slides.map((slide, index) => ({ ...slide, img: images[index] }))
 const index = ref(0)
 const preview = ref<HTMLDialogElement | null>(null)
 // shortcut: manual controls only; add swipe or autoplay if engagement data justifies it
@@ -22,33 +21,33 @@ function closePreview() { preview.value?.close() }
 <template>
   <section class="mockup-section section-wrap" id="mockup" aria-labelledby="mockup-title" @keydown.left.prevent="step(-1)" @keydown.right.prevent="step(1)">
     <div class="section-head">
-      <h2 id="mockup-title"><BlurText v-bind="heading" tag="span" text="Semua kehadiran dalam satu layar." /></h2>
+      <h2 id="mockup-title"><BlurText v-bind="blurHeading" tag="span" :text="mockup.heading" /></h2>
     </div>
     <div class="mockup-viewer">
-      <button class="mockup-arrow mockup-prev" type="button" aria-label="Sebelumnya" @click="step(-1)">
+      <button class="mockup-arrow mockup-prev" type="button" :aria-label="mockup.aria.previous" @click="step(-1)">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
       </button>
-      <button class="mockup-stage" type="button" aria-label="Perbesar tampilan" @click="openPreview">
+      <button class="mockup-stage" type="button" :aria-label="mockup.aria.enlarge" @click="openPreview">
         <Transition name="mockup-swap" mode="out-in">
           <img :key="index" :src="slides[index].img" :alt="slides[index].alt" loading="lazy" />
         </Transition>
       </button>
-      <button class="mockup-arrow mockup-next" type="button" aria-label="Berikutnya" @click="step(1)">
+      <button class="mockup-arrow mockup-next" type="button" :aria-label="mockup.aria.next" @click="step(1)">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
       </button>
     </div>
     <div class="mockup-controls">
-      <div class="mockup-dots" role="group" aria-label="Pilih tampilan">
+      <div class="mockup-dots" role="group" :aria-label="mockup.aria.choose">
         <button v-for="(slide, i) in slides" :key="slide.label" type="button" :class="{ active: index === i }" :aria-current="index === i ? 'true' : undefined" :aria-label="slide.label" @click="index = i"></button>
       </div>
       <p class="mockup-caption" aria-live="polite">{{ slides[index].label }}</p>
     </div>
-    <dialog ref="preview" class="mockup-dialog" aria-label="Pratinjau tampilan" @click.self="closePreview">
-      <button class="mockup-close" type="button" aria-label="Tutup pratinjau" @click="closePreview">×</button>
+    <dialog ref="preview" class="mockup-dialog" :aria-label="mockup.aria.preview" @click.self="closePreview">
+      <button class="mockup-close" type="button" :aria-label="mockup.aria.closePreview" @click="closePreview">×</button>
       <img :src="slides[index].img" :alt="slides[index].alt" />
     </dialog>
   </section>

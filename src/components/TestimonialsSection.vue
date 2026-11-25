@@ -1,27 +1,12 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import content from '../data/content.json'
+import { blurHeading } from '../data/ui'
 import BlurText from './BlurText.vue'
 
-const comments = [
-  'Absensi QR dan selfie membuat pencatatan hadir lebih praktis.',
-  'Admin bisa melihat rekap kehadiran dari satu dashboard.',
-  'Anggota dapat absen melalui browser tanpa memasang aplikasi.',
-  'Jadwal absensi lebih tertib karena lokasi ikut dicatat.',
-  'Laporan harian jadi lebih mudah disiapkan untuk tim.',
-  'Pengecekan lokasi membantu memastikan anggota hadir di titik yang sesuai.',
-  'Beberapa lokasi bisa dikelola lewat satu dashboard.',
-  'Data kehadiran lebih mudah diekspor untuk kebutuhan laporan.',
-  'Admin bisa memantau kehadiran saat itu juga.',
-  'Foto selfie digunakan untuk validasi dan dihapus sesuai pengaturan lembaga.',
-]
-const avatarPhotos = [
-  'https://images.unsplash.com/photo-1578933301026-3e5e901126dc',
-  'https://images.unsplash.com/photo-1745434159123-5b99b94206ca',
-  'https://images.unsplash.com/photo-1543965170-4c01a586684e',
-  'https://images.unsplash.com/photo-1654516311866-5db2ae873c25',
-  'https://images.unsplash.com/photo-1746813629025-67ccab1f4edd',
-  'https://images.unsplash.com/photo-1687360440741-f5df549b352d',
-]
+const { testimonials } = content
+const comments = testimonials.comments
+const avatarPhotos = testimonials.avatars
 const leftComments = comments.slice(0, 5)
 const rightComments = comments.slice(5)
 const quoteIndex = ref(0)
@@ -60,8 +45,8 @@ onBeforeUnmount(() => {
   <section class="testimonials-section" aria-labelledby="testimonials-title">
     <div class="testimonials-inner">
       <div class="testimonials-intro">
-        <h2 id="testimonials-title"><BlurText tag="span" text="Kehadiran yang lebih mudah dikelola." effect="blur" animate-by="words" direction="top" stagger-from="start" trigger="view" :delay="40" :step-duration="0.28" :blur="8" :distance="18" /></h2>
-        <a class="testimonials-cta" href="#paket"><span aria-hidden="true">✳</span> Lihat paket <b aria-hidden="true">↗</b></a>
+        <h2 id="testimonials-title"><BlurText v-bind="blurHeading" tag="span" :text="testimonials.heading" /></h2>
+        <a class="testimonials-cta" href="#paket"><span aria-hidden="true">✳</span> {{ testimonials.cta }} <b aria-hidden="true">↗</b></a>
 
         <div class="testimonials-divider"></div>
         <div class="featured-comment" aria-live="off">
@@ -71,7 +56,7 @@ onBeforeUnmount(() => {
           </Transition>
           <div class="featured-attribution">
             <img :src="avatarFor(quoteIndex)" alt="" width="36" height="36" loading="lazy" decoding="async" />
-            <small>Contoh isi komentar · ganti dengan ulasan pelanggan</small>
+            <small>{{ testimonials.featuredAttribution }}</small>
           </div>
         </div>
       </div>
@@ -81,25 +66,25 @@ onBeforeUnmount(() => {
         :class="{ 'is-paused': motionPaused || reducedMotion }"
         role="region"
         tabindex="0"
-        aria-label="Komentar bergerak; arahkan pointer atau fokuskan untuk menghentikan sementara."
+        :aria-label="testimonials.wallAria"
         @pointerenter="pointerOver = true"
         @pointerleave="pointerOver = false"
         @focusin="focusWithin = true"
         @focusout="focusWithin = false"
       >
-        <div class="testimonial-columns" aria-label="Contoh komentar SobatAbsen">
+        <div class="testimonial-columns" :aria-label="testimonials.columnsAria">
           <div class="testimonial-window">
             <div class="testimonial-track move-up">
               <div class="testimonial-stack">
                 <article v-for="(comment, index) in leftComments" :key="`left-${index}`" class="comment-card">
                   <p>{{ comment }}</p>
-                  <div class="comment-attribution"><img :src="avatarFor(index)" alt="" width="36" height="36" loading="lazy" decoding="async" /><small>Contoh komentar</small></div>
+                  <div class="comment-attribution"><img :src="avatarFor(index)" alt="" width="36" height="36" loading="lazy" decoding="async" /><small>{{ testimonials.cardAttribution }}</small></div>
                 </article>
               </div>
               <div class="testimonial-stack" aria-hidden="true">
                 <article v-for="(comment, index) in leftComments" :key="`left-copy-${index}`" class="comment-card">
                   <p>{{ comment }}</p>
-                  <div class="comment-attribution"><img :src="avatarFor(index)" alt="" width="36" height="36" loading="lazy" decoding="async" /><small>Contoh komentar</small></div>
+                  <div class="comment-attribution"><img :src="avatarFor(index)" alt="" width="36" height="36" loading="lazy" decoding="async" /><small>{{ testimonials.cardAttribution }}</small></div>
                 </article>
               </div>
             </div>
@@ -109,13 +94,13 @@ onBeforeUnmount(() => {
               <div class="testimonial-stack">
                 <article v-for="(comment, index) in rightComments" :key="`right-${index}`" class="comment-card">
                   <p>{{ comment }}</p>
-                  <div class="comment-attribution"><img :src="avatarFor(index, 5)" alt="" width="36" height="36" loading="lazy" decoding="async" /><small>Contoh komentar</small></div>
+                  <div class="comment-attribution"><img :src="avatarFor(index, 5)" alt="" width="36" height="36" loading="lazy" decoding="async" /><small>{{ testimonials.cardAttribution }}</small></div>
                 </article>
               </div>
               <div class="testimonial-stack" aria-hidden="true">
                 <article v-for="(comment, index) in rightComments" :key="`right-copy-${index}`" class="comment-card">
                   <p>{{ comment }}</p>
-                  <div class="comment-attribution"><img :src="avatarFor(index, 5)" alt="" width="36" height="36" loading="lazy" decoding="async" /><small>Contoh komentar</small></div>
+                  <div class="comment-attribution"><img :src="avatarFor(index, 5)" alt="" width="36" height="36" loading="lazy" decoding="async" /><small>{{ testimonials.cardAttribution }}</small></div>
                 </article>
               </div>
             </div>

@@ -1,68 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import content from '../data/content.json'
+import { blurHeading } from '../data/ui'
 import BlurText from './BlurText.vue'
 import mockupLokasi from '../assets/section fitur/mockup1.webp'
 import mockupQr from '../assets/section fitur/mockup2.webp'
 import mockupSelfie from '../assets/section fitur/mockup3.webp'
 import mockupAdmin from '../assets/mockup-kehadiran.webp'
 
-const heading = {
-  effect: 'blur',
-  'animate-by': 'words',
-  direction: 'top',
-  'stagger-from': 'start',
-  trigger: 'view',
-  delay: 40,
-  'step-duration': 0.28,
-  blur: 8,
-  distance: 18
-} as const
-
+const { features } = content
+const images = [mockupLokasi, mockupQr, mockupSelfie, mockupAdmin]
+const items = features.items.map((item, index) => ({ ...item, img: images[index] }))
 const activeIndex = ref(0)
-
-const items = [
-  {
-    id: 'lokasi',
-    title: 'Deteksi Lokasi',
-    desc: 'Presensi hanya sah di dalam radius yang ditentukan.',
-    img: mockupLokasi,
-    alt: 'Tampilan verifikasi lokasi GPS SobatAbsen dengan radius 100m'
-  },
-  {
-    id: 'qr',
-    title: 'Scan Kode QR',
-    desc: 'Scan lewat browser ponsel tanpa instal aplikasi.',
-    img: mockupQr,
-    alt: 'Tampilan pemindaian kode QR lokasi SobatAbsen'
-  },
-  {
-    id: 'selfie',
-    title: 'Foto Selfie',
-    desc: 'Foto langsung di tempat, terhapus otomatis demi privasi.',
-    img: mockupSelfie,
-    alt: 'Tampilan verifikasi wajah dan foto selfie langsung SobatAbsen'
-  },
-  {
-    id: 'admin',
-    title: 'Control Penuh Lewat Admin',
-    desc: 'Pantau kehadiran real-time dan ekspor ke Excel.',
-    img: mockupAdmin,
-    alt: 'Dashboard admin SobatAbsen untuk memantau rekap kehadiran'
-  }
-]
 </script>
 
 <template>
   <section class="features-section section-wrap" id="fitur" aria-labelledby="features-heading">
     <div class="section-head">
       <h2 id="features-heading">
-        Fitur <em><BlurText v-bind="heading" tag="span" text="utama." /></em>
+        {{ features.headingPrefix }}<em><BlurText v-bind="blurHeading" tag="span" :text="features.headingAccent" /></em>
       </h2>
     </div>
 
     <div class="features-inner">
-      <!-- PILIHAN FITUR (Sebelah Kiri) -->
-      <div class="features-list" role="tablist" aria-label="Daftar Fitur">
+      <div class="features-list" role="tablist" :aria-label="features.ariaLabel">
         <button
           v-for="(item, index) in items"
           :key="item.id"
@@ -81,7 +42,6 @@ const items = [
         </button>
       </div>
 
-      <!-- INFOGRAFIS / FOTO MOCKUP (Sebelah Kanan) -->
       <div class="features-visual" :class="{ 'is-admin-view': activeIndex === 3 }" aria-hidden="true">
         <div
           v-for="(item, index) in items"

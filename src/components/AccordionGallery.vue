@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { gsap } from 'gsap'
 import { computed, onMounted, onUnmounted, ref, watch, type CSSProperties, type ComponentPublicInstance } from 'vue'
+import content from '../data/content.json'
+
+const { aria: galleryAria } = content.mockup
 
 interface AccordionGalleryItem {
   image: string
@@ -34,13 +37,7 @@ interface AccordionGalleryProps {
 }
 
 const props = withDefaults(defineProps<AccordionGalleryProps>(), {
-  items: () => [
-    { image: 'https://picsum.photos/id/1015/900/1200', label: 'Canyon', link: '#' },
-    { image: 'https://picsum.photos/id/1018/900/1200', label: 'Ridgeline', link: '#' },
-    { image: 'https://picsum.photos/id/1039/900/1200', label: 'Falls', link: '#' },
-    { image: 'https://picsum.photos/id/1043/900/1200', label: 'Harbour', link: '#' },
-    { image: 'https://picsum.photos/id/1044/900/1200', label: 'Skyline', link: '#' }
-  ],
+  items: () => [],
   defaultIndex: 2,
   accentColor: '#ffffff',
   overlayColor: '#060010',
@@ -261,7 +258,7 @@ const closePreview = () => preview.value?.close()
     :class="vertical ? 'flex-col' : 'flex-row'"
     :style="rootStyle"
     role="list"
-    aria-label="Image accordion gallery"
+    :aria-label="galleryAria.galleryAria"
   >
     <component
       :is="item.link ? 'a' : 'div'"
@@ -334,7 +331,7 @@ const closePreview = () => preview.value?.close()
     <div class="grid grid-cols-2 items-center gap-3">
       <button
         type="button"
-        aria-label="Perbesar tampilan"
+        :aria-label="galleryAria.enlarge"
         class="relative col-span-2 row-start-1 aspect-[1460/1268] w-full cursor-zoom-in overflow-hidden border border-white bg-[#f4faf6] p-2"
         :style="{ borderRadius: `${radius + 4}px` }"
         @click="openPreview"
@@ -351,7 +348,7 @@ const closePreview = () => preview.value?.close()
       </button>
       <button
         type="button"
-        aria-label="Sebelumnya"
+        :aria-label="galleryAria.previous"
         class="grid size-11 justify-self-end place-items-center rounded-full border border-[#c2cbd4] bg-white text-slate-900 shadow-sm transition hover:border-[#1878ec] hover:bg-[#1878ec] hover:text-white hover:shadow-[0_6px_20px_rgba(24,120,236,.35)] active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1878ec]"
         @click="step(-1)"
       >
@@ -361,7 +358,7 @@ const closePreview = () => preview.value?.close()
       </button>
       <button
         type="button"
-        aria-label="Berikutnya"
+        :aria-label="galleryAria.next"
         class="grid size-11 justify-self-start place-items-center rounded-full border border-[#c2cbd4] bg-white text-slate-900 shadow-sm transition hover:border-[#1878ec] hover:bg-[#1878ec] hover:text-white hover:shadow-[0_6px_20px_rgba(24,120,236,.35)] active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1878ec]"
         @click="step(1)"
       >
@@ -376,10 +373,10 @@ const closePreview = () => preview.value?.close()
     <dialog
       ref="preview"
       class="m-auto max-h-[92dvh] w-[min(92vw,1200px)] max-w-none overflow-visible border-0 bg-transparent p-0 backdrop:bg-[rgba(5,11,18,0.82)] backdrop:backdrop-blur-[6px]"
-      aria-label="Pratinjau tampilan"
+      :aria-label="galleryAria.preview"
       @click.self="closePreview"
     >
-      <button type="button" aria-label="Tutup pratinjau" class="absolute -right-3.5 -top-3.5 grid size-10 place-items-center rounded-full border border-white/35 bg-[#111] text-xl leading-none text-white" @click="closePreview">×</button>
+      <button type="button" :aria-label="galleryAria.closePreview" class="absolute -right-3.5 -top-3.5 grid size-10 place-items-center rounded-full border border-white/35 bg-[#111] text-xl leading-none text-white" @click="closePreview">×</button>
       <img :src="items[active].image" :alt="items[active].alt || items[active].label || ''" class="block max-h-[86dvh] max-w-full rounded-xl object-contain" />
     </dialog>
   </div>

@@ -1,0 +1,291 @@
+{
+  "blurHeading": {
+    "effect": "blur",
+    "animate-by": "words",
+    "direction": "top",
+    "stagger-from": "start",
+    "trigger": "view",
+    "delay": 40,
+    "step-duration": 0.28,
+    "blur": 8,
+    "distance": 18
+  },
+  "meta": {
+    "title": "SobatAbsen — Absensi Digital QR + Selfie untuk Sekolah, Yayasan & Pabrik",
+    "description": "Absen cepat dengan scan QR dan selfie. Aman, privat, dan mudah. Mulai gratis hingga 40 anggota.",
+    "ogTitle": "SobatAbsen — Absensi Digital QR + Selfie",
+    "themeColor": "#ffffff",
+    "ogType": "website",
+    "twitterCard": "summary_large_image"
+  },
+  "brand": {
+    "name": "SobatAbsen",
+    "prefix": "sobat",
+    "suffix": "absen",
+    "mark": "✳",
+    "homeLabel": "SobatAbsen beranda"
+  },
+  "header": {
+    "menuLabel": "Buka menu",
+    "navAria": "Navigasi utama"
+  },
+  "nav": [
+    { "label": "Cara Kerja", "href": "#cara-kerja" },
+    { "label": "Fitur", "href": "#fitur" },
+    { "label": "Paket", "href": "#paket" },
+    { "label": "FAQ", "href": "#faq" }
+  ],
+  "hero": {
+    "lines": ["Absen selesai", "dalam hitungan detik."],
+    "primaryCta": "Mulai Jelajahi",
+    "primaryCtaHref": "#cara-kerja",
+    "secondaryCta": "Paket",
+    "secondaryCtaHref": "#paket",
+    "accentColor": "#c5e0ff",
+    "brandColors": ["#111", "#1878ec"]
+  },
+  "audience": {
+    "heading": "Untuk berbagai lembaga.",
+    "items": [
+      { "label": "Sekolah & Kampus", "alt": "Absen siswa per kelas, tanpa kertas." },
+      { "label": "Yayasan & Komunitas", "alt": "Pantau kehadiran kegiatan dan pengurus." },
+      { "label": "Pabrik & Kantor", "alt": "Kehadiran karyawan di titik kerja yang tepat." },
+      { "label": "Event Organizer", "alt": "Absen peserta acara, aktif hanya beberapa hari." }
+    ]
+  },
+  "how": {
+    "headingPrefix": "Absen dalam ",
+    "headingAccent": "tiga langkah.",
+    "ariaLabel": "Alur absensi",
+    "steps": [
+      { "title": "Aktifkan lokasi", "desc": "Absen dari radius yang ditentukan." },
+      { "title": "Scan QR", "desc": "Gunakan QR yang tersedia di lokasi." },
+      { "title": "Ambil selfie", "desc": "Gunakan kamera langsung, bukan galeri." }
+    ]
+  },
+  "mockup": {
+    "heading": "Semua kehadiran dalam satu layar.",
+    "slides": [
+      { "label": "Beranda", "alt": "Dashboard beranda dengan ringkasan kehadiran anggota" },
+      { "label": "Kehadiran dan rekap", "alt": "Daftar kehadiran anggota beserta status dan hasil rekap harian" },
+      { "label": "Sesi absensi", "alt": "Daftar sesi absensi dengan lokasi, jam, dan toleransi" }
+    ],
+    "aria": {
+      "galleryAria": "Image accordion gallery",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "enlarge": "Perbesar tampilan",
+      "choose": "Pilih tampilan",
+      "preview": "Pratinjau tampilan",
+      "closePreview": "Tutup pratinjau"
+    }
+  },
+  "features": {
+    "headingPrefix": "Fitur ",
+    "headingAccent": "utama.",
+    "ariaLabel": "Daftar Fitur",
+    "items": [
+      { "id": "lokasi", "title": "Deteksi Lokasi", "desc": "Presensi hanya sah di dalam radius yang ditentukan.", "alt": "Tampilan verifikasi lokasi GPS SobatAbsen dengan radius 100m" },
+      { "id": "qr", "title": "Scan Kode QR", "desc": "Scan lewat browser ponsel tanpa instal aplikasi.", "alt": "Tampilan pemindaian kode QR lokasi SobatAbsen" },
+      { "id": "selfie", "title": "Foto Selfie", "desc": "Foto langsung di tempat, terhapus otomatis demi privasi.", "alt": "Tampilan verifikasi wajah dan foto selfie langsung SobatAbsen" },
+      { "id": "admin", "title": "Control Penuh Lewat Admin", "desc": "Pantau kehadiran real-time dan ekspor ke Excel.", "alt": "Dashboard admin SobatAbsen untuk memantau rekap kehadiran" }
+    ]
+  },
+  "plans": {
+    "heading": "Mulai gratis. Naik kelas saat butuh.",
+    "tabs": [
+      { "value": "monthly", "label": "Langganan Bulanan" },
+      { "value": "oneoff", "label": "Eceran & Custom" }
+    ],
+    "ariaLabel": "Jenis paket",
+    "badges": {
+      "hemat": "Paling hemat",
+      "pro": "Paling lengkap",
+      "custom": "Paling lengkap"
+    },
+    "capacitySuffix": " anggota",
+    "free": {
+      "price": "Gratis",
+      "note": "selamanya",
+      "button": "Mulai Gratis"
+    },
+    "promoNote": "Bulan pertama",
+    "renewalNote": "Berikutnya",
+    "renewalSuffix": "/bln",
+    "choose": "Pilih ",
+    "oneoff": {
+      "descriptions": {
+        "event": "Absen acara tanpa komitmen bulanan.",
+        "custom": "Solusi untuk institusi berskala besar."
+      },
+      "labels": {
+        "event": "Jumlah peserta",
+        "custom": "Jumlah anggota"
+      },
+      "placeholders": {
+        "event": "250",
+        "custom": "800"
+      },
+      "categoriesLabel": "Kategori institusi",
+      "categories": ["Sekolah", "Yayasan", "Pabrik", "Kantor", "Event"],
+      "durationLabel": "Lama aktif",
+      "durations": [
+        { "value": 3, "label": "3 hari" },
+        { "value": 5, "label": "5 hari" },
+        { "value": 7, "label": "7 hari" }
+      ],
+      "minimums": {
+        "event": 41,
+        "custom": 501
+      },
+      "validation": {
+        "event": "Minimal 41 peserta. Untuk di bawahnya, ",
+        "eventLink": "Starter gratis cukup.",
+        "custom": "Minimal 501 anggota. Pilih Pro untuk hingga 500."
+      },
+      "estimate": {
+        "event": "Estimasi total",
+        "custom": "Estimasi per bulan"
+      },
+      "emptyEstimate": "—",
+      "rateLabel": {
+        "event": " peserta × Rp",
+        "custom": " anggota × Rp"
+      },
+      "activeSuffix": " · aktif ",
+      "daySuffix": " hari"
+    }
+  },
+  "faq": {
+    "heading": "Pertanyaan umum.",
+    "alt": "SobatAbsen",
+    "items": [
+      { "q": "Apa itu SobatAbsen?", "a": "Aplikasi absensi digital dengan QR, selfie, dan pengecekan lokasi untuk memastikan kehadiran tercatat dengan benar." },
+      { "q": "Apakah anggota harus mengunduh aplikasi?", "a": "Tidak. Anggota cukup membuka halaman absen lewat browser ponsel." },
+      { "q": "Bagaimana jika ponsel anggota rusak atau tidak ada sinyal?", "a": "Admin dapat mengubah status kehadiran secara manual dari halaman rekap." },
+      { "q": "Apakah foto selfie disimpan selamanya?", "a": "Tidak. Foto dihapus otomatis dalam 1–3 hari sesuai pengaturan lembaga." },
+      { "q": "Bisakah satu lembaga punya banyak lokasi?", "a": "Bisa, dengan satu dashboard pada paket Hemat ke atas." },
+      { "q": "Apa bedanya Event dan Hemat/Pro?", "a": "Paket Event dirancang untuk kegiatan sekali pakai selama 3–7 hari dan dibayar per peserta." },
+      { "q": "Bagaimana jika anggota melebihi kapasitas?", "a": "SobatAbsen akan mengarahkan Anda memilih paket dengan kapasitas yang sesuai." },
+      { "q": "Metode bayar apa saja?", "a": "Tersedia QRIS, Virtual Account, dan e-wallet. Pembayaran pada halaman ini masih simulasi." }
+    ]
+  },
+  "testimonials": {
+    "heading": "Kehadiran yang lebih mudah dikelola.",
+    "cta": "Lihat paket",
+    "comments": [
+      "Absensi QR dan selfie membuat pencatatan hadir lebih praktis.",
+      "Admin bisa melihat rekap kehadiran dari satu dashboard.",
+      "Anggota dapat absen melalui browser tanpa memasang aplikasi.",
+      "Jadwal absensi lebih tertib karena lokasi ikut dicatat.",
+      "Laporan harian jadi lebih mudah disiapkan untuk tim.",
+      "Pengecekan lokasi membantu memastikan anggota hadir di titik yang sesuai.",
+      "Beberapa lokasi bisa dikelola lewat satu dashboard.",
+      "Data kehadiran lebih mudah diekspor untuk kebutuhan laporan.",
+      "Admin bisa memantau kehadiran saat itu juga.",
+      "Foto selfie digunakan untuk validasi dan dihapus sesuai pengaturan lembaga."
+    ],
+    "avatars": [
+      "https://images.unsplash.com/photo-1578933301026-3e5e901126dc",
+      "https://images.unsplash.com/photo-1745434159123-5b99b94206ca",
+      "https://images.unsplash.com/photo-1543965170-4c01a586684e",
+      "https://images.unsplash.com/photo-1654516311866-5db2ae873c25",
+      "https://images.unsplash.com/photo-1746813629025-67ccab1f4edd",
+      "https://images.unsplash.com/photo-1687360440741-f5df549b352d"
+    ],
+    "featuredAttribution": "Contoh isi komentar · ganti dengan ulasan pelanggan",
+    "cardAttribution": "Contoh komentar",
+    "wallAria": "Komentar bergerak; arahkan pointer atau fokuskan untuk menghentikan sementara.",
+    "columnsAria": "Contoh komentar SobatAbsen"
+  },
+  "cta": {
+    "heading": "Mulai absen lebih mudah.",
+    "primary": "Mulai Gratis",
+    "secondary": "Lihat Paket",
+    "href": "#paket"
+  },
+  "footer": {
+    "copyright": "© 2026 SobatAbsen",
+    "email": "sobatabsen@gmail.com",
+    "emailHref": "mailto:sobatabsen@gmail.com",
+    "phone": "0812345678910",
+    "phoneHref": "https://wa.me/62812345678910",
+    "ariaLabel": "Footer"
+  },
+  "checkout": {
+    "stepperAria": "Progres checkout",
+    "closeLabel": "Tutup",
+    "steps": ["Paket", "Data lembaga", "Pembayaran", "Selesai"],
+    "results": {
+      "success": {
+        "eyebrow": "Pembayaran diterima",
+        "title": "Paketmu siap dimulai.",
+        "body": "Cek email Anda untuk membuat akun admin.",
+        "button": "Selesai"
+      },
+      "expired": {
+        "eyebrow": "Waktu pembayaran habis",
+        "title": "Buat instruksi baru.",
+        "button": "Buat ulang"
+      },
+      "failed": {
+        "eyebrow": "Pembayaran gagal",
+        "title": "Coba metode lain.",
+        "button": "Kembali ke metode bayar"
+      }
+    },
+    "plan": {
+      "heading": "Paket pilihanmu",
+      "monthly": "Paket bulanan",
+      "oneoff": "Paket eceran",
+      "continue": "Lanjutkan"
+    },
+    "form": {
+      "heading": "Data pengelola",
+      "lead": "Isi nama lembaga dan kontak pengelola.",
+      "institution": "Nama lembaga",
+      "institutionPlaceholder": "Contoh: SMP Harapan",
+      "category": "Kategori lembaga",
+      "categoryPlaceholder": "Pilih kategori",
+      "manager": "Nama pengelola",
+      "managerPlaceholder": "Nama lengkap",
+      "email": "Email",
+      "emailPlaceholder": "nama@email.com",
+      "whatsapp": "Nomor WhatsApp",
+      "whatsappPlaceholder": "08xxxxxxxxxx",
+      "back": "← Kembali",
+      "continue": "Lanjutkan →"
+    },
+    "payment": {
+      "heading": "Pilih cara membayar.",
+      "total": "Total pembayaran",
+      "methods": [
+        { "id": "QRIS", "label": "Q-ris" },
+        { "id": "Virtual Account", "label": "VA (Virtual Account)" },
+        { "id": "E-Wallet", "label": "E - Wallet" }
+      ],
+      "pay": "Bayar"
+    },
+    "finish": {
+      "heading": "Selesaikan pembayaran.",
+      "qrTitle": "Scan QR untuk membayar",
+      "qrExpiry": "Kedaluwarsa dalam 14:59",
+      "vaTitle": "Nomor Virtual Account",
+      "vaNumber": "8808 1234 5678 9012",
+      "copy": "Salin nomor",
+      "otherTitle": "Lanjutkan pembayaran melalui ",
+      "openApp": "Buka aplikasi",
+      "simulateSuccess": "Simulasikan berhasil",
+      "simulateExpired": "Simulasikan kedaluwarsa",
+      "simulateFailed": "Simulasikan gagal"
+    },
+    "footnote": "Tidak ada pembayaran atau data yang dikirim."
+  },
+  "seo": {
+    "softwareName": "SobatAbsen",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offerPlanIds": ["starter", "hemat", "pro"],
+    "faqIndexes": [0, 1, 3]
+  }
+}
