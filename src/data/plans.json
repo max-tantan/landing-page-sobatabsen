@@ -3,5 +3,5 @@
   { "id": "hemat", "name": "Hemat", "type": "bulanan", "priceMonthly": 50000, "promoFirstMonth": 40000, "capacity": { "max": 200 }, "features": ["Semua fitur Starter", "Banyak lokasi", "Prioritas bantuan"] },
   { "id": "pro", "name": "Pro", "type": "bulanan", "priceMonthly": 100000, "promoFirstMonth": 90000, "capacity": { "max": 500 }, "features": ["Semua fitur Hemat", "Jadwal sesi lanjutan", "Prioritas bantuan utama"] },
   { "id": "event", "name": "Event", "type": "eceran", "pricePerPerson": 400, "capacity": { "min": 41 }, "badge": "Sekali pakai", "features": ["Min. 41 peserta", "Aktif 3–7 hari", "Semua fitur dasar", "Foto terhapus saat acara selesai"] },
-  { "id": "custom", "name": "Custom Institusi", "type": "eceran", "pricePerPerson": 430, "capacity": { "min": 501 }, "features": ["Min. 501 anggota", "Dibayar per bulan", "Semua fitur Pro", "Pendampingan onboarding"] }
+  { "id": "custom", "name": "Custom Institusi", "type": "eceran", "pricePerPerson": 430, "capacity": { "min": 501, "max": 2000 }, "features": ["501–2000 anggota", "Dibayar per bulan", "Semua fitur Pro", "Pendampingan onboarding"] }
 ]

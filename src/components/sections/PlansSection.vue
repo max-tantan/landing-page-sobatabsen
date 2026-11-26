@@ -10,6 +10,7 @@ import RubberSegment from '../RubberSegment.vue'
 const emit = defineEmits<{ select: [plan: Plan, total: number] }>()
 const { plans: copy } = content
 const oneoff = copy.oneoff
+const customMax = PLANS.find(plan => plan.id === 'custom')!.capacity.max!
 const planTab = ref<'monthly' | 'oneoff'>('monthly')
 const eventPeople = ref('250')
 const eventDays = ref(5)
@@ -18,8 +19,13 @@ const customCategory = ref('Sekolah')
 const eventCount = computed(() => eventPeople.value === '' ? null : Number(eventPeople.value))
 const customCount = computed(() => customPeople.value === '' ? null : Number(customPeople.value))
 const eventValid = computed(() => eventCount.value !== null && Number.isFinite(eventCount.value) && eventCount.value >= oneoff.minimums.event)
-const customValid = computed(() => customCount.value !== null && Number.isFinite(customCount.value) && customCount.value >= oneoff.minimums.custom)
+const customValid = computed(() => customCount.value !== null && Number.isFinite(customCount.value) && customCount.value >= oneoff.minimums.custom && customCount.value <= customMax)
 let cleanupPlanTabAnimation = () => {}
+
+function clampCustomPeople() {
+  const digits = customPeople.value.replace(/\D/g, '')
+  customPeople.value = digits === '' ? '' : String(Math.min(Number(digits), customMax))
+}
 
 function choose(plan: Plan) {
   const total = plan.id === 'event'
@@ -101,9 +107,9 @@ onBeforeUnmount(() => cleanupPlanTabAnimation())
             <span class="plan-highlight">{{ plan.id === 'event' ? plan.badge : copy.badges.custom }}</span>
           </div>
           <p class="capacity">{{ plan.id === 'event' ? oneoff.descriptions.event : oneoff.descriptions.custom }}</p>
-          <label class="calc-label">{{ plan.id === 'event' ? oneoff.labels.event : oneoff.labels.custom }}
+          <label class="calc-label">{{ plan.id === 'event' ? oneoff.labels.event : `${oneoff.labels.custom} (maks. ${customMax})` }}
             <input v-if="plan.id === 'event'" v-model="eventPeople" type="text" inputmode="numeric" :placeholder="oneoff.placeholders.event" @input="eventPeople = eventPeople.replace(/\D/g, '')" />
-            <input v-else v-model="customPeople" type="text" inputmode="numeric" :placeholder="oneoff.placeholders.custom" @input="customPeople = customPeople.replace(/\D/g, '')" />
+            <input v-else v-model="customPeople" type="text" inputmode="numeric" :maxlength="String(customMax).length" :placeholder="oneoff.placeholders.custom" @input="clampCustomPeople" />
           </label>
           <label v-if="plan.id === 'custom'" class="calc-label">{{ oneoff.categoriesLabel }}
             <select v-model="customCategory">

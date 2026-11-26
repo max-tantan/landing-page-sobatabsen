@@ -3,9 +3,18 @@ import { ref } from 'vue'
 import content from '../../data/content.json'
 import { blurHeading } from '../../data/ui'
 import BlurText from '../BlurText.vue'
+import RubberSegment from '../RubberSegment.vue'
 
 const { comparison, brand } = content
 const mobileView = ref<'legacy' | 'sobat'>('legacy')
+const viewItems = [
+  { value: 'legacy', label: comparison.columns.legacy },
+  { value: 'sobat', label: comparison.columns.sobat },
+]
+
+function handleViewChange(value: string) {
+  if (value === 'legacy' || value === 'sobat') mobileView.value = value
+}
 </script>
 
 <template>
@@ -17,10 +26,7 @@ const mobileView = ref<'legacy' | 'sobat'>('legacy')
       </h2>
     </div>
     <div class="comparison-shell" :data-view="mobileView">
-      <div class="comparison-pills" role="group" :aria-label="comparison.pillAria">
-        <button type="button" :class="{ 'is-active': mobileView === 'legacy' }" :aria-pressed="mobileView === 'legacy'" @click="mobileView = 'legacy'">{{ comparison.columns.legacy }}</button>
-        <button type="button" :class="{ 'is-active': mobileView === 'sobat' }" :aria-pressed="mobileView === 'sobat'" @click="mobileView = 'sobat'">{{ comparison.columns.sobat }}</button>
-      </div>
+      <RubberSegment :items="viewItems" :value="mobileView" track-color="#fff" thumb-color="#111" text-color="#111" active-text-color="#fff" size="md" :radius="999" :inset="3" equal-slots :stretch="100" :squash="3" :speed="1" :glide="75" draggable :aria-label="comparison.pillAria" class-name="comparison-tabs" @change="handleViewChange" />
       <div class="comparison-table-wrap" role="region" tabindex="0" aria-labelledby="comparison-caption">
         <table class="comparison-table">
           <caption id="comparison-caption" class="sr-only">{{ comparison.caption }}</caption>

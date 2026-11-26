@@ -292,7 +292,7 @@ li,td,th,label,input,select,button,.topbar nav a,.footer-nav a,.faq-item button,
 .comparison-brand>span{color:var(--green)}
 .comparison-brand svg{width:.3em;height:.3em;margin-left:.12em;color:var(--orange,var(--ink));vertical-align:top}
 .comparison-shell{container-type:inline-size}
-.comparison-pills,.comparison-cards{display:none}
+.comparison-shell .comparison-tabs,.comparison-cards{display:none}
 .comparison-table-wrap{overflow:auto;max-inline-size:100%;max-block-size:min(560px,80vh);border:1px solid #e5e5e5;border-radius:18px;background:#fff}
 .comparison-table{width:100%;min-width:640px;border-collapse:separate;border-spacing:0}
 .comparison-table th,.comparison-table td{padding:18px 22px;text-align:left;vertical-align:top;border-bottom:1px solid #eee;line-height:1.5}
@@ -305,9 +305,7 @@ li,td,th,label,input,select,button,.topbar nav a,.footer-nav a,.faq-item button,
 @media(max-width:800px){.comparison-section{width:calc(100% - 24px);padding:52px 24px 30px}}
 @media(max-width:650px){.comparison-section{width:calc(100% - 16px);margin:26px auto;padding:42px 14px 22px;border-radius:22px}}
 @container (width < 650px){
-  .comparison-pills{display:flex;width:max-content;margin:0 auto 14px;padding:3px;border:1px solid #e5e5e5;border-radius:999px;background:#fff}
-  .comparison-pills button{padding:8px 16px;border:0;border-radius:999px;background:transparent;color:#111;font-weight:700;transition:background .18s,color .18s}
-  .comparison-pills button.is-active{background:#111;color:#fff}
+  .comparison-shell .comparison-tabs{display:grid;width:max-content;margin:0 auto 14px;border:1px solid #e5e5e5}
   .comparison-table-wrap{display:none}
   .comparison-cards{display:block}
   .comparison-shell[data-view="legacy"] .comparison-card-sobat,.comparison-shell[data-view="sobat"] .comparison-card-legacy{display:none}

@@ -43,6 +43,7 @@ onBeforeUnmount(() => {
 
 <template>
   <section class="testimonials-section" aria-labelledby="testimonials-title">
+    <div class="section-divider" aria-hidden="true"><span></span><b>✳</b><span></span></div>
     <div class="testimonials-inner">
       <div class="testimonials-intro">
         <h2 id="testimonials-title"><BlurText v-bind="blurHeading" tag="span" :text="testimonials.heading" /></h2>
@@ -112,7 +113,11 @@ onBeforeUnmount(() => {
 </template>
 
 <style>
-.testimonials-section{padding:96px 0;background:#f8f9fb}
+.testimonials-section{padding:48px 0 96px;background:#f8f9fb}
+.section-divider{display:flex;align-items:center;gap:14px;max-width:1280px;margin:0 auto 32px;padding:0 42px;color:var(--green)}
+.section-divider span{flex:1;height:1px;background:linear-gradient(90deg,transparent,#d9d9d9)}
+.section-divider span:last-child{background:linear-gradient(90deg,#d9d9d9,transparent)}
+.section-divider b{font:14px/1 Manrope,sans-serif}
 .testimonials-inner{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:58px;max-width:1280px;margin:0 auto;padding:0 42px}
 .testimonials-intro{padding:28px 0}
 .testimonials-intro .eyebrow{margin-bottom:12px;color:#1878ec}
@@ -145,7 +150,7 @@ onBeforeUnmount(() => {
 .testimonials-wall:focus-visible{outline:3px solid #1878ec;outline-offset:4px}
 @keyframes testimonials-up{to{transform:translateY(-50%)}}
 @keyframes testimonials-down{from{transform:translateY(-50%)}to{transform:translateY(0)}}
-@media(max-width:900px){.testimonials-section{padding:72px 0}.testimonials-inner{grid-template-columns:1fr;gap:30px;padding:0 25px}.testimonials-intro{padding:0}.testimonials-intro h2,.featured-comment{max-width:600px}.testimonials-divider{margin:30px 0 22px}.testimonials-wall{padding-top:34px}.testimonial-columns{height:460px}}
-@media(max-width:650px){.testimonials-section{padding:62px 0}.testimonials-inner{gap:22px;padding:0 22px}.testimonials-divider{margin:26px 0 20px}.featured-comment{min-height:150px}.testimonial-columns{height:400px;gap:10px}.testimonial-stack{gap:10px;padding-bottom:10px}.comment-card{padding:13px;border-radius:13px}.comment-card p{font-size:.875rem!important}.comment-attribution{gap:8px;margin-top:12px}.comment-attribution img{width:32px;height:32px;flex-basis:32px}.comment-card small{font-size:.75rem}}
+@media(max-width:900px){.testimonials-section{padding:40px 0 72px}.section-divider{margin-bottom:28px;padding:0 25px}.testimonials-inner{grid-template-columns:1fr;gap:30px;padding:0 25px}.testimonials-intro{padding:0}.testimonials-intro h2,.featured-comment{max-width:600px}.testimonials-divider{margin:30px 0 22px}.testimonials-wall{padding-top:34px}.testimonial-columns{height:460px}}
+@media(max-width:650px){.testimonials-section{padding:32px 0 62px}.section-divider{margin-bottom:24px;padding:0 22px}.testimonials-inner{gap:22px;padding:0 22px}.testimonials-divider{margin:26px 0 20px}.featured-comment{min-height:150px}.testimonial-columns{height:400px;gap:10px}.testimonial-stack{gap:10px;padding-bottom:10px}.comment-card{padding:13px;border-radius:13px}.comment-card p{font-size:.875rem!important}.comment-attribution{gap:8px;margin-top:12px}.comment-attribution img{width:32px;height:32px;flex-basis:32px}.comment-card small{font-size:.75rem}}
 @media(prefers-reduced-motion:reduce){.testimonial-track{animation:none!important}.comment-change-enter-active,.comment-change-leave-active{transition:none}}
 </style>
